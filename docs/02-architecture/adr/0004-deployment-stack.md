@@ -1,7 +1,8 @@
-# ADR-0004: Proposed Web, API, and Data Deployment Stack
+# ADR-0004: Proposed Managed-provider Deployment Stack
 
-- Status: `PROPOSED`
+- Status: `SUPERSEDED`
 - Date: 2026-08-03
+- Superseded by: [`0005-local-docker-vps-target.md`](0005-local-docker-vps-target.md)
 
 ## Context
 
@@ -15,6 +16,6 @@ RUBIK đề xuất Python/FastAPI/SQLAlchemy/Pydantic, Supabase, Vercel, và Git
 - Alembic là authority duy nhất cho database migration.
 - GitHub Actions với staging và protected production environments.
 
-## Quyết định còn cần
+## Disposition
 
-RUBIK phải chấp nhận production backend runtime và repository license (`TBD-012`, `TBD-013`). Một pilot chỉ dùng Vercel được phép khi có review/exit condition rõ ràng.
+RUBIK đã chọn Local Docker-first và VPS Docker Compose làm target đầu tiên tại `TBD-013`. Vercel, Cloud Run và Supabase trở thành alternatives để review sau khi có measured operational need; proposal này không còn là deployment baseline.

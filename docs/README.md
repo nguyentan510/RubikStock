@@ -10,8 +10,12 @@
 6. [`01-business/BUSINESS_RULES.md`](01-business/BUSINESS_RULES.md)
 7. [`01-business/STATE_MACHINES.md`](01-business/STATE_MACHINES.md)
 8. [`03-data/DATA_MODEL.md`](03-data/DATA_MODEL.md)
-9. [`06-delivery/BUILD_ORDER.md`](06-delivery/BUILD_ORDER.md)
-10. [`06-delivery/big-plan/MASTER_PLAN.md`](06-delivery/big-plan/MASTER_PLAN.md)
+9. [`02-architecture/DEPLOYMENT_ARCHITECTURE.md`](02-architecture/DEPLOYMENT_ARCHITECTURE.md)
+10. [`02-architecture/MISA_INTEGRATION_DISCOVERY.md`](02-architecture/MISA_INTEGRATION_DISCOVERY.md)
+11. [`03-data/SHELF_LIFE_POLICY.md`](03-data/SHELF_LIFE_POLICY.md)
+12. [`03-data/templates/README.md`](03-data/templates/README.md)
+13. [`06-delivery/BUILD_ORDER.md`](06-delivery/BUILD_ORDER.md)
+14. [`06-delivery/big-plan/MASTER_PLAN.md`](06-delivery/big-plan/MASTER_PLAN.md)
 
 ## Nhóm tài liệu
 

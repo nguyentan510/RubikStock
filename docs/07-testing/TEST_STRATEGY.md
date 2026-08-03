@@ -7,7 +7,7 @@
 | Domain unit | FEFO, eligibility, conversion, state transition, planning formula |
 | Database invariant | Constraints, ledger/projection, transactions, concurrency, idempotency |
 | API contract | Authentication, authorization, validation, hành vi error/idempotency |
-| Integration | Ranh giới Supabase Postgres/Auth/Storage và scheduled jobs |
+| Integration | Ranh giới PostgreSQL/auth/private storage adapters và scheduled jobs |
 | Workflow | Receipt-to-putaway, order-to-shipment, return-to-disposition, trip reconciliation |
 | Migration | Clean rebuild, upgrade, rollback/forward recovery, Excel import idempotency |
 | Security | Role matrix, cross-tenant/object access, secret/log exposure, file upload |
@@ -29,6 +29,7 @@
 
 - Dùng seed fixture mang tính quyết định với partner và product giả.
 - Tách riêng conversion case/bottle và bag/weight.
+- Bao gồm package-open/repack measured-sale và genealogy về Lot/package gốc.
 - Bao gồm nhiều Lot, expiry bằng nhau, nhiều location, partial stock, blocked status, và concurrent orders.
 - Cấm dùng dữ liệu customer/supplier thật trong fixture của repository.
 

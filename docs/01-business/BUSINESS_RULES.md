@@ -15,7 +15,7 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | INV-005 | Available quantity = eligible on-hand quantity trừ active reservations. Stock bị blocked, quarantine, damaged, expired, recalled, hoặc chờ hủy không được tính là available. |
 | INV-006 | Movement đã post không được xóa hay sửa để đổi nghĩa; lỗi phải sửa bằng reversal và replacement kèm audit link. |
 | INV-007 | Transfer phải dùng cặp movement nguồn/đích trong cùng một transaction. |
-| INV-008 | Chênh lệch physical count phải có lý do và approval policy trước khi post adjustment. |
+| INV-008 | Chênh lệch physical count phải có lý do và một cấp `Warehouse Manager` approval trước khi post adjustment; requester và approver phải khác nhau. |
 
 ## Product, Lot, và date
 
@@ -44,9 +44,9 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | OUT-001 | Cam kết bán hàng phải dùng available/ATP policy, không bao giờ dùng raw on-hand quantity. |
 | OUT-002 | Nhu cầu đã xác nhận phải tạo active reservation trước khi picking. |
 | OUT-003 | Hàng sắp hết hạn đủ điều kiện phải được allocate theo FEFO; receipt time là tie-breaker cho date liên quan bằng nhau/không rõ theo policy. |
-| OUT-004 | Mức shelf-life tối thiểu của khách là một bộ lọc đủ điều kiện được áp dụng trước khi sắp xếp FEFO. |
+| OUT-004 | Mức shelf-life tối thiểu của khách là bộ lọc áp dụng trước FEFO, hỗ trợ minimum remaining days, percent hoặc cả hai; khi dùng cả hai, candidate phải đạt cả hai và percent không được suy đoán khi thiếu MFG/EXP. |
 | OUT-005 | Một order line có thể allocate từ nhiều Lot và nhiều location. |
-| OUT-006 | FEFO override cần permission, lý do, gợi ý gốc, lựa chọn thực tế, và approval policy. |
+| OUT-006 | FEFO override luôn cần một cấp `Warehouse Manager` approval, lý do, gợi ý gốc và lựa chọn thực tế; override không được làm blocked/expired/ineligible stock trở thành hợp lệ. |
 | OUT-007 | Xác nhận picking phải kiểm tra product, Lot, location, và quantity khớp với allocation. |
 | OUT-008 | Xác nhận shipment phải ghi nhận stock-out movement và tiêu thụ reservation tương ứng một cách atomic. |
 | OUT-009 | Nhu cầu đã xác nhận nhưng không được đáp ứng phải được phân loại rõ: partial, backorder, substitute proposal, rejected, hoặc lost sale. |
@@ -58,10 +58,10 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 |---|---|
 | QLT-001 | Stock ở trạng thái `QC_HOLD`, `QUARANTINE`, `DAMAGED`, `EXPIRED`, `RECALLED`, hoặc `DESTROY_PENDING` không được bán hay allocate. |
 | RET-001 | Hàng khách trả về luôn phải vào trạng thái/location quarantine trước bất kỳ quyết định restock nào. |
-| RET-002 | Return record phải giữ nguyên order gốc, shipment, product, Lot, quantity, reason, và evidence khi có. |
+| RET-002 | Return record phải giữ nguyên order gốc, shipment, product, Lot, quantity, reason, note và ít nhất một private photo evidence. |
 | RET-003 | Restock cần kết quả inspection và disposition đã được duyệt; chỉ nhận hàng không đủ để trả lại availability. |
 | RET-004 | Return không tạo manufacturer lot mới, trừ khi một quy trình transformation/repacking đã được ghi nhận yêu cầu một internal traceability unit mới. |
-| DST-001 | Destruction cần product, Lot, quantity, reason, requester, independent approver, execution record, và evidence policy. |
+| DST-001 | Destruction cần product, Lot, quantity, reason/note, requester, independent approver, execution record, và ít nhất một private photo evidence. |
 | DST-002 | Số lượng `DESTROYED` là kết quả lịch sử của movement và không còn là on hand. |
 
 ## Delivery
@@ -92,6 +92,7 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | AUD-001 | Mọi quyết định có đặc quyền phải ghi actor, timestamp, target, prior state, new state, reason, và tham chiếu approval/evidence. |
 | AUD-002 | Identity đăng nhập phải là cá nhân được nêu tên; cấm dùng shared accountable-user credentials. |
 | AUD-003 | Timestamp nghiệp vụ phải phân biệt thời điểm sự kiện xảy ra với thời điểm nó được ghi nhận. |
+| AUD-004 | Transaction, audit, POD, return và destruction evidence không được auto-delete trong policy hiện tại; thay đổi retention/deletion cần CEO final approval, Warehouse Manager review và audit record. |
 | SEC-001 | Secret key, database credential, và dữ liệu kinh doanh thật không bao giờ được commit lên public repository. |
 | SEC-002 | Browser client không bao giờ nhận database secret/service-role credentials. |
 | SEC-003 | Authorization phải được enforce ở server-side và được test xác minh; ẩn UI không phải là authorization. |

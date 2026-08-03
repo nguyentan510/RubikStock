@@ -8,6 +8,13 @@
 
 Quản lý chuyến xe nội bộ từ loading tới POD và reconcile hàng giao thiếu/thất bại/mang về mà driver không thể sửa trực tiếp inventory.
 
+## Accepted D0 inputs
+
+- Một order có thể giao nhiều đợt và nhiều chuyến.
+- Mỗi shipment/trip phải có reconciliation riêng.
+- Partial delivery và backorder là behavior bắt buộc.
+- Driver/coordinator dùng mobile/PC theo online-first MVP.
+
 ## Work packages
 
 | ID | Nội dung | Deliverables | Verification |

@@ -31,15 +31,15 @@ D0 Product truth
 
 ## Slice có thể triển khai tiếp theo
 
-Slice tiếp theo hiện tại là `D0-D1 Business Acceptance`, chưa phải application code. RUBIK phải giải quyết hoặc cố ý defer các mục `TBD` có tác động lớn:
+Slice tiếp theo của decision track là `D0 Product Acceptance`, song song với D2 foundation. Ba mục Batch D đã có disposition:
 
-- UOM/package breaking (`TBD-002`).
-- Độ đầy đủ của Lot/expiry (`TBD-003`).
-- Nguồn sales-order và split delivery (`TBD-004`, `TBD-005`).
-- Shelf-life của khách và ngưỡng approval (`TBD-008`, `TBD-009`).
-- Thiết bị/kết nối và backend runtime (`TBD-011`, `TBD-013`).
+- Accounting integration (`TBD-007`) deferred có owner `Kế toán`; không thuộc MVP.
+- Repository license (`TBD-012`) deferred có owner `CEO/Project Owner`; public source-visible nhưng chưa open source.
+- Runtime (`TBD-013`) accepted: Local Docker-first và Linux VPS Docker Compose target.
 
-Sau khi chấp nhận, triển khai `D2 Technical Foundation` như một slice có ranh giới rõ ràng.
+Tổng register có 12 accepted, 2 deferred có owner và không còn mục Open vô chủ.
+
+Sau D0 acceptance, D1 business contracts vẫn phải được review riêng. D2 tiếp tục theo slice full-stack Compose, migration lifecycle, auth/RBAC và staging VPS; không coi D0 acceptance là evidence D2 pass.
 
 ## Scope guard
 

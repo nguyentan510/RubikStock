@@ -51,7 +51,7 @@ M3 và một phần M4 có thể phát triển song song sau khi M2 contracts �
 
 | Phase | Documentation | Implementation | Runtime evidence | Quyết định |
 |---|---|---|---|---|
-| D0 | Draft đầy đủ | N/A | Chưa có acceptance | Active decision track |
+| D0 | 14/14 TBD có disposition | N/A | Product acceptance ready for review | Active decision track |
 | D1 | Draft rules/contracts | Chưa có domain code | Chưa có acceptance | Active decision track |
 | D2 | Draft + scaffold | Partial | Local PostgreSQL/API/web verified | Active engineering track |
 | M1-M8 | Planned | Chưa bắt đầu | Chưa có | Locked theo dependency |
@@ -135,7 +135,7 @@ Không khóa kế hoạch theo số tuần khi chưa biết team capacity. Dùng
 
 Work-package status hiện hành được theo dõi tại [`CURRENT_PHASE_TRACKER.md`](CURRENT_PHASE_TRACKER.md).
 
-1. Đóng D0.1-D0.5: gán owner và xử lý các `TBD` ảnh hưởng schema/workflow.
+1. Review D0.6 Product Acceptance; 14/14 TBD đã có disposition (12 accepted, 2 deferred có owner).
 2. Đóng D1.1-D1.7: business acceptance cho inventory, Lot, UOM, outbound, return và delivery.
 3. Song song harden D2.1-D2.9: auth/RBAC, clean migration reset, staging và security findings.
 4. Chỉ sau đó mở M1.1 cho master-data schema.

@@ -6,16 +6,17 @@
 
 1. Đọc [`MASTER_PLAN.md`](MASTER_PLAN.md) để biết dependency, gate và trạng thái tổng thể.
 2. Đọc [`CURRENT_PHASE_TRACKER.md`](CURRENT_PHASE_TRACKER.md) để biết work package đang active và evidence còn thiếu.
-3. Chỉ mở roadmap của phase đang active.
-4. Triển khai từng work package theo đúng thứ tự dependency.
-5. Cập nhật code, tests, contracts, traceability và implementation status trong cùng một slice.
-6. Không nâng maturity nếu chưa có evidence được yêu cầu.
+3. D0 workshop đã có disposition cho đủ 14 TBD; acceptance review ở [`D0_PRODUCT_ACCEPTANCE.md`](D0_PRODUCT_ACCEPTANCE.md).
+4. Chỉ mở roadmap của phase đang active.
+5. Triển khai từng work package theo đúng thứ tự dependency.
+6. Cập nhật code, tests, contracts, traceability và implementation status trong cùng một slice.
+7. Không nâng maturity nếu chưa có evidence được yêu cầu.
 
 ## Roadmap theo phase
 
 | Phase | Roadmap | Trạng thái hiện tại |
 |---|---|---|
-| D0 | [`D0_PRODUCT_TRUTH.md`](D0_PRODUCT_TRUTH.md) | `PROPOSED`, chờ business acceptance |
+| D0 | [`D0_PRODUCT_TRUTH.md`](D0_PRODUCT_TRUTH.md) | `READY_FOR_REVIEW`, chờ business acceptance |
 | D1 | [`D1_BUSINESS_CONTRACTS.md`](D1_BUSINESS_CONTRACTS.md) | `PROPOSED`, chờ business acceptance |
 | D2 | [`D2_TECHNICAL_FOUNDATION.md`](D2_TECHNICAL_FOUNDATION.md) | `IMPLEMENTED_PARTIAL`, local runtime đã verify |
 | M1 | [`M1_MASTER_DATA_WAREHOUSE_MAP.md`](M1_MASTER_DATA_WAREHOUSE_MAP.md) | `PLANNED`, bị khóa bởi D0-D2 |

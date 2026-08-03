@@ -17,9 +17,12 @@ Trao đổi supplier/customer
 ## Đặc điểm đã biết
 
 - Đơn B2B ít nhưng mỗi đơn có thể rất lớn.
+- Đơn hàng chủ yếu được tiếp nhận và xử lý qua nhân viên Sales.
+- RUBIK vận hành 2 warehouse với khoảng 300 SKU.
 - Bố trí kho dựa vào kinh nghiệm/thói quen, chưa có mã khu/tầng/ô chính thức.
 - Stock và planning đang được quản lý thủ công bằng Excel.
 - RUBIK có hoạt động giao hàng riêng.
+- Một order có thể được giao nhiều đợt/nhiều chuyến; thiếu hàng được xử lý bằng partial delivery hoặc backorder.
 - Bộ phận mua hàng lập kế hoạch cho mặt hàng gần hết và cần bối cảnh chu kỳ bán hàng/mùa vụ.
 - Lịch âm và mùa Trung thu ảnh hưởng thời điểm demand.
 - Hàng lỗi, hết hàng, trả hàng, hết hạn, và hủy là các vấn đề vận hành đau đầu.

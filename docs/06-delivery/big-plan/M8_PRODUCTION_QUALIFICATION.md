@@ -23,6 +23,8 @@ Chứng minh hệ thống, dữ liệu, con người và runbooks đủ khả n�
 | M8.9 | Cutover/rollback | Writer ownership, dual-run window, freeze, rollback criteria | Tabletop + rehearsal |
 | M8.10 | Promotion decision | Go/no-go record và named approver | Gate M8 pass |
 
+Retention/privacy/storage-cost review theo [`../../08-operations/RETENTION_POLICY.md`](../../08-operations/RETENTION_POLICY.md) là input bắt buộc của M8.2; no-delete provisional policy không tự động đồng nghĩa production-ready.
+
 ## Qualification levels
 
 ```text

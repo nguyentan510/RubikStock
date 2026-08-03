@@ -8,6 +8,11 @@
 
 Nhận hàng B2B số lượng lớn từ supplier, ghi Lot/MFG/EXP, discrepancy, QC và put-away với trace đầy đủ tới stock available hoặc blocked.
 
+## Accepted D0 inputs
+
+- Receipt forward-capture dùng [`../../03-data/templates/receipt_capture.csv`](../../03-data/templates/receipt_capture.csv) trước khi M3 UI trở thành source of truth.
+- Lot/date validation theo product tracking policy; không dựa legacy Excel.
+
 ## Work packages
 
 | ID | Nội dung | Deliverables | Verification |

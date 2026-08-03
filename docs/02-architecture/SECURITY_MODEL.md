@@ -10,7 +10,7 @@
 
 ## Authentication và authorization
 
-- Supabase Auth có thể cung cấp user identity/JWT.
+- Authentication adapter cung cấp user identity/session hoặc JWT; provider được chọn trong D2.
 - FastAPI xác thực identity và enforce RBAC/policy ở phía server.
 - Việc UI hiển thị hay không không phải authorization.
 - Mọi hành động có trách nhiệm phải dùng account có tên rõ ràng.
@@ -23,8 +23,8 @@
 |---|---|---|
 | Database runtime URL | API runtime secret manager | Browser, Git, docs, logs |
 | Database migration URL | CI environment/secret manager đã bảo vệ | Ví dụ cho developer, browser |
-| Supabase publishable key | Frontend environment khi RLS/policy đúng | Dùng như bằng chứng authorization |
-| Supabase secret key | Chỉ backend | Browser, mobile bundle, public repository |
+| Auth public/client configuration | Frontend environment nếu provider yêu cầu | Dùng như bằng chứng authorization |
+| Auth/storage administrative key | Chỉ backend | Browser, mobile bundle, public repository |
 | Cloud deploy identity | Ưu tiên OIDC ngắn hạn | Token public/repo dài hạn |
 | Cron/job authentication | Secret manager | URL query string hoặc source code |
 
@@ -35,6 +35,7 @@
 - Bucket chứa evidence là private; database chỉ lưu metadata và liên kết nghiệp vụ.
 - Signed/object access phải ngắn hạn và chỉ cấp cho role/record yêu cầu.
 - Production data không được sao chép sang fixture test local hoặc public.
+- Transaction/audit/POD/return/destruction evidence hiện không được auto-delete; xem [`../08-operations/RETENTION_POLICY.md`](../08-operations/RETENTION_POLICY.md).
 
 ## Application controls
 
@@ -63,7 +64,7 @@
 
 - Authorization tests cho mọi command đặc quyền.
 - Secret scan không còn credential chưa xử lý.
-- Review RLS/data API exposure nếu có browser-to-Supabase access.
+- Review provider data API/RLS exposure nếu sau này có browser-to-managed-service access.
 - Restore test và access revocation test.
 - Review public repository để chắc chắn không có business data thật.
 - Diễn tập incident và credential-rotation.

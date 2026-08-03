@@ -20,6 +20,8 @@ Nhánh cho phép:
 - `SHIPPED -> PARTIALLY_DELIVERED`
 - Trạng thái trước shipment đủ điều kiện có thể sang `CANCELLED` sau khi giải phóng reservations/allocations.
 - Hoàn tất delivery có thể tạo `PARTIALLY_RETURNED` trước khi close.
+- Một order có thể sở hữu nhiều shipment/trip; partial delivery không close order khi quantity còn lại vẫn là active backorder.
+- Mỗi shipment có lifecycle/reconciliation riêng và không được dùng trạng thái tổng của order để suy đoán shipment đã giao.
 
 Implementation có thể tách state của order, fulfillment, và shipment thay vì dồn mọi giá trị vào một cột. Các transition quan sát được phải tương đương.
 

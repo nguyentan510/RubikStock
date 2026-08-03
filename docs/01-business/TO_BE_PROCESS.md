@@ -40,11 +40,13 @@ flowchart LR
 
 ## 3. Sales order và reservation
 
-1. Sales ghi customer, requested date, lines, và shelf-life requirement.
-2. Xác nhận chỉ kiểm tra `available`, không phải tổng `on_hand`.
-3. Policy quyết định giao đủ, giao một phần, backorder, hoặc từ chối.
-4. Số lượng đã xác nhận sẽ tạo reservation một cách atomic.
-5. Allocation áp dụng customer eligibility, sau đó FEFO, sau đó receipt-time tie-break, rồi mới tới pick preference vận hành.
+1. Sales ghi customer, requested date, lines, và shelf-life requirement vào RubikStock.
+2. Sau confirmation, RubikStock là operational system of record của order; thay đổi tiếp theo phải đi qua controlled command/audit.
+3. Xác nhận chỉ kiểm tra `available`, không phải tổng `on_hand`.
+4. Policy quyết định giao đủ, giao một phần, backorder, hoặc từ chối.
+5. Số lượng đã xác nhận sẽ tạo reservation một cách atomic.
+6. Allocation áp dụng customer eligibility, sau đó FEFO, sau đó receipt-time tie-break, rồi mới tới pick preference vận hành.
+7. Một order có thể tạo nhiều shipment và được giao bằng nhiều trip; mỗi shipment phải có quantity/state/reconciliation riêng.
 
 ## 4. Picking, staging, và loading
 
@@ -62,6 +64,7 @@ flowchart LR
 3. Delivery ghi nhận quantity đã giao, bị từ chối, thiếu, hư hỏng, và mang về.
 4. POD được lưu riêng tư và link với shipment.
 5. Bất kỳ hàng vật lý nào quay về RUBIK đều phải vào return quarantine, không đi thẳng vào available storage.
+6. Order chỉ close khi mọi confirmed quantity đã delivered, cancelled hoặc được xử lý theo backorder policy.
 
 ## 6. Return, defect, và destruction
 

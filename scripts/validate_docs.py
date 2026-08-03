@@ -26,18 +26,30 @@ REQUIRED_FILES = (
     "docs/02-architecture/SYSTEM_CONTEXT.md",
     "docs/02-architecture/MODULE_BOUNDARIES.md",
     "docs/02-architecture/DEPLOYMENT_ARCHITECTURE.md",
+    "docs/02-architecture/MISA_INTEGRATION_DISCOVERY.md",
     "docs/02-architecture/SECURITY_MODEL.md",
     "docs/02-architecture/REFERENCES.md",
+    "docs/02-architecture/adr/0005-local-docker-vps-target.md",
     "docs/03-data/DATA_MODEL.md",
     "docs/03-data/INVENTORY_LEDGER.md",
     "docs/03-data/UOM_CONVERSION.md",
     "docs/03-data/LOT_TRACEABILITY.md",
     "docs/03-data/EXCEL_MIGRATION.md",
+    "docs/03-data/SHELF_LIFE_POLICY.md",
+    "docs/03-data/templates/README.md",
+    "docs/03-data/templates/product_master.csv",
+    "docs/03-data/templates/uom_conversion.csv",
+    "docs/03-data/templates/customer_shelf_life_policy.csv",
+    "docs/03-data/templates/opening_stock.csv",
+    "docs/03-data/templates/receipt_capture.csv",
+    "docs/03-data/templates/sales_capture.csv",
     "docs/06-delivery/ROADMAP.md",
     "docs/06-delivery/BUILD_ORDER.md",
     "docs/06-delivery/big-plan/README.md",
     "docs/06-delivery/big-plan/MASTER_PLAN.md",
     "docs/06-delivery/big-plan/CURRENT_PHASE_TRACKER.md",
+    "docs/06-delivery/big-plan/D0_DECISION_WORKSHOP.md",
+    "docs/06-delivery/big-plan/D0_PRODUCT_ACCEPTANCE.md",
     "docs/06-delivery/big-plan/D0_PRODUCT_TRUTH.md",
     "docs/06-delivery/big-plan/D1_BUSINESS_CONTRACTS.md",
     "docs/06-delivery/big-plan/D2_TECHNICAL_FOUNDATION.md",
@@ -61,6 +73,7 @@ REQUIRED_FILES = (
     "docs/08-operations/SECRET_MANAGEMENT.md",
     "docs/08-operations/INCIDENT_RUNBOOK.md",
     "docs/08-operations/MONITORING.md",
+    "docs/08-operations/RETENTION_POLICY.md",
 )
 
 LINK_RE = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
@@ -146,6 +159,74 @@ def validate_big_plan_structure(errors: list[str]) -> None:
             errors.append(f"incomplete big-plan roadmap: {relative} missing exit criteria")
 
 
+def validate_clean_start_templates(errors: list[str]) -> None:
+    templates = {
+        "docs/03-data/templates/product_master.csv": {"sku", "tracking_policy", "base_uom"},
+        "docs/03-data/templates/uom_conversion.csv": {
+            "sku",
+            "base_uom",
+            "base_quantity_per_input_uom",
+        },
+        "docs/03-data/templates/customer_shelf_life_policy.csv": {
+            "policy_code",
+            "minimum_remaining_days",
+            "minimum_remaining_percent",
+        },
+        "docs/03-data/templates/opening_stock.csv": {
+            "count_batch_ref",
+            "location_code",
+            "inventory_status",
+        },
+        "docs/03-data/templates/receipt_capture.csv": {
+            "receipt_ref",
+            "supplier_lot",
+            "initial_status",
+        },
+        "docs/03-data/templates/sales_capture.csv": {
+            "order_ref",
+            "stockout_flag",
+            "lost_sale_quantity",
+        },
+    }
+    for relative, required_headers in templates.items():
+        path = ROOT / relative
+        if not path.exists():
+            continue
+        first_line = path.read_text(encoding="utf-8").splitlines()[0]
+        headers = {header.strip() for header in first_line.split(",")}
+        missing = sorted(required_headers - headers)
+        if missing:
+            errors.append(f"invalid clean-start template: {relative} missing {', '.join(missing)}")
+
+
+def validate_d0_decision_register(errors: list[str]) -> None:
+    register = ROOT / "docs/00-product/OPEN_QUESTIONS.md"
+    if not register.exists():
+        return
+
+    decisions: dict[str, str] = {}
+    for line in register.read_text(encoding="utf-8").splitlines():
+        match = re.match(r"^\| (TBD-\d{3}) \|.*\| ([^|]+) \|$", line)
+        if match:
+            decisions[match.group(1)] = match.group(2).strip()
+
+    expected = {f"TBD-{number:03d}" for number in range(1, 15)}
+    missing = sorted(expected - decisions.keys())
+    unexpected = sorted(decisions.keys() - expected)
+    if missing:
+        errors.append(f"D0 decision register missing: {', '.join(missing)}")
+    if unexpected:
+        errors.append(f"D0 decision register has unexpected IDs: {', '.join(unexpected)}")
+
+    unresolved = sorted(
+        decision_id
+        for decision_id, status in decisions.items()
+        if not status.startswith(("Accepted ", "Deferred ", "Rejected "))
+    )
+    if unresolved:
+        errors.append(f"D0 decisions without disposition: {', '.join(unresolved)}")
+
+
 def validate_no_committed_secret_values(errors: list[str]) -> None:
     candidates = markdown_files() + [ROOT / ".env.example"]
     for path in candidates:
@@ -164,6 +245,8 @@ def main() -> int:
     validate_links(errors)
     validate_rule_ids(errors)
     validate_big_plan_structure(errors)
+    validate_clean_start_templates(errors)
+    validate_d0_decision_register(errors)
     validate_no_committed_secret_values(errors)
 
     if errors:

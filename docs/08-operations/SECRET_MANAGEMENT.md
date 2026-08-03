@@ -6,7 +6,7 @@
 - Lưu runtime secret trong cơ chế secret/environment của platform.
 - Bảo vệ production deployment thông qua GitHub Environment approval.
 - Ưu tiên OIDC deployment identity ngắn hạn khi được hỗ trợ.
-- Giữ Supabase secret/database credentials ở phía server.
+- Giữ database, auth administrative và storage credentials ở phía server.
 - Che/redact authorization header, connection string, token, và signed URL khỏi log.
 
 ## Mẫu quy trình rotation

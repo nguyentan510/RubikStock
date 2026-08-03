@@ -1,0 +1,1 @@
+order_ref,line_no,order_date,customer_code,salesperson_code,source_channel,sku,ordered_quantity,ordered_uom,requested_delivery_date,minimum_remaining_shelf_life_days,confirmed_at,fulfillment_status,fulfilled_quantity,stockout_flag,lost_sale_quantity,delivered_at

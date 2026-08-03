@@ -5,15 +5,15 @@ Trạng thái phản ánh evidence hiện có, không phải work tương lai d�
 | Rule set | Design owner | Planned implementation | Required verification | Status |
 |---|---|---|---|---|
 | INV-001..008 | Inventory ledger | `inventory` module + migrations | Test ledger/projection, negative, reversal, transfer | Documented |
-| LOT-001..006 | Lot/quality | `catalog`, `inventory`, `quality` | Test thiếu date, recall, trace nhiều location | Documented |
-| UOM-001..004 | Catalog/UOM | `catalog` + inventory posting | Test conversion/version/fraction chính xác | Documented; TBD-002 open |
+| LOT-001..006 | Lot/quality | `catalog`, `inventory`, `quality` | Test thiếu date, recall, trace nhiều location | Documented; D0 clean-start/date policy accepted, D1 pending |
+| UOM-001..004 | Catalog/UOM | `catalog` + inventory posting | Test conversion/version/fraction/repack genealogy | Documented; D0 case-break/measured-sale accepted, D1 pending |
 | OUT-001..010 | Outbound | `outbound` + inventory reservations | Test concurrency, FEFO, shelf-life, override, nhiều Lot | Documented |
 | QLT-001 | Quality | status eligibility policy | Test toàn bộ blocked-status allocation | Documented |
 | RET-001..004 | Returns/quality | return và disposition services | Test quarantine/restock/genealogy | Documented |
 | DST-001..002 | Quality/inventory | destruction workflow | Test tách biệt, idempotent posting, evidence | Documented; threshold TBD |
 | DEL-001..005 | Delivery | trip/loading/POD/reconciliation | Test delivery partial/failed và return reconciliation | Documented |
-| PLN-001..006 | Planning | versioned planning runs | Test reproducibility, stockout flag, event window, WAPE/bias | Documented; history TBD |
-| AUD-001..003 | Audit | audit service/storage | Test actor/state/reason/occurred-vs-recorded | Documented |
+| PLN-001..006 | Planning | versioned planning runs | Test reproducibility, stockout flag, event window, WAPE/bias | Documented; clean-start forward history accepted, D1/M7 pending |
+| AUD-001..004 | Audit | audit service/storage | Test actor/state/reason/time/retention-deletion authorization | Documented; no-auto-delete D0 policy accepted |
 | SEC-001..003 | Identity/security | auth middleware/policy/CI | Test permission, secret scan, browser exposure | Documented |
 
 ## Quy tắc promotion

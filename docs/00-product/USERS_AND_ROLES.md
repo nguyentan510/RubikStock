@@ -28,3 +28,7 @@
 - Chỉ dùng account cá nhân có tên; không dùng shared warehouse login cho hành động có trách nhiệm.
 - Driver chỉ được truy cập trip đã phân công và dữ liệu delivery liên quan.
 - Role đặc quyền cần policy authentication mạnh hơn, sẽ được định nghĩa trong D2 security design.
+
+## D0 decision authority
+
+`Quản lý Kho` là role chấp nhận các quyết định D0 operating-shape trong workshop hiện tại. Việc này không tự cấp quyền self-approve adjustment/destruction hoặc bỏ qua separation-of-duty trong runtime.

@@ -22,14 +22,14 @@ Có môi trường development/staging tái tạo được, authentication/autho
 | ID | Nội dung | Deliverables | Verification |
 |---|---|---|---|
 | D2.1 | Repository governance | License, branch policy, contribution/security policy | Repo governance review |
-| D2.2 | Reproducible environments | Local/test/staging env matrix, pinned toolchains | Clean-machine setup smoke |
+| D2.2 | Reproducible environments | Full-stack Local Docker Compose, local/test/staging matrix, pinned toolchains | Clean-machine setup smoke |
 | D2.3 | Migration lifecycle | Baseline, upgrade/reset/rebuild/rollback policy | Clean PostgreSQL rebuild gate |
 | D2.4 | Identity foundation | Authentication adapter, named users, session/token validation | Auth smoke |
 | D2.5 | Authorization foundation | Server-side RBAC/policy dependency | Permission allow/deny tests |
 | D2.6 | API contract baseline | Error envelope, pagination, idempotency, request IDs | OpenAPI/contract tests |
 | D2.7 | Private file foundation | Storage metadata, signed access, size/type policy | Unauthorized-access tests |
 | D2.8 | CI/security hardening | Ruff, tests, build, migrations, secret/dependency scan | CI run pass; high findings disposed |
-| D2.9 | Staging deployment | Isolated database/secrets/domain, deploy/rollback commands | Staging readiness smoke |
+| D2.9 | Staging deployment | Isolated VPS/Compose project, database/secrets/domain, deploy/rollback commands | Staging readiness smoke |
 | D2.10 | Foundation exit review | Evidence links và operator commands | Gate D2 pass |
 
 ## Thứ tự triển khai đề xuất
@@ -44,10 +44,10 @@ Có môi trường development/staging tái tạo được, authentication/autho
 ## Finding đang mở
 
 - Authentication/authorization chưa được triển khai.
-- Chưa có staging runtime evidence.
+- Full-stack Docker Compose và staging VPS chưa có runtime evidence.
 - `npm audit` có ba finding mức `high` trong dependency tree.
 - Baseline migration chưa chứa domain schema; clean reset policy cần evidence trước M1.
-- License public source code chưa được chốt.
+- Repository public source-visible nhưng chưa có OSS license; license selection deferred có owner và due gate.
 
 ## Exit gate
 

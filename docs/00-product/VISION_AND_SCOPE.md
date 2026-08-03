@@ -23,6 +23,10 @@ Nhập từ nhà cung cấp -> Tồn kho theo Lot/location -> Phân bổ B2B -> 
 - Kho hiện chưa có hệ thống mã khu/vị trí chính thức.
 - Các vấn đề lặp lại gồm hàng lỗi, hết hàng, trả hàng, hết hạn, và hủy.
 - Bộ phận mua hàng cần replenishment planning, seasonality, và lịch âm.
+- Operating baseline có 2 warehouse và khoảng 300 SKU.
+- Sales là nguồn order chính; RubikStock trở thành operational system of record sau khi order được xác nhận.
+- Một order có thể được fulfill bằng nhiều shipment/chuyến, bao gồm partial delivery và backorder.
+- Kho/xe dùng PC và mobile với connectivity ổn định; MVP theo hướng online-first.
 
 ## Kết quả mong muốn của product
 
@@ -78,3 +82,10 @@ Mọi mục tiêu số cần baseline trước khi chốt ngưỡng.
 ## Ranh giới product
 
 RubikStock là operational source of truth cho stock và fulfillment. Hệ thống accounting vẫn là financial source of truth cho đến khi một project integration riêng được chấp nhận.
+
+## Warehouse pilot baseline
+
+- Data model hỗ trợ 2 warehouse; rollout bắt đầu tại `WH-01`.
+- Bốn zone vận hành tối thiểu: `INB` receiving, `AVL` available storage, `QTN` controlled hold và `OUT` outbound staging.
+- Physical-label pilot bắt đầu tại `WH-01-AVL` với tập SKU đại diện.
+- `QTN` dùng các bin tách biệt cho QC, return, damaged, expired và destroy-pending; inventory status vẫn được quản lý độc lập với location.

@@ -8,6 +8,12 @@
 
 Đề xuất nhập hàng có thể giải thích và reproduce từ demand đã qualify, stock position, lead time, safety stock, MOQ/case pack và seasonal/lunar events; quyết định mua vẫn do con người duyệt.
 
+## Accepted D0 input
+
+- Không import legacy sales history.
+- RubikStock bắt đầu capture sales/fulfillment/stockout/lost-sale theo format chuẩn từ clean-start date.
+- M7 chỉ dùng forward-qualified history; trước khi đủ data gate, replenishment dùng min/max, safety stock và human review thay vì forecast claim.
+
 ## Work packages
 
 | ID | Nội dung | Deliverables | Verification |

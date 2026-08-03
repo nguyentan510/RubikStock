@@ -8,6 +8,12 @@
 
 Thiết lập inventory truth từ append-only movements, scoped theo warehouse/location/product/Lot/status, có projection và reconciliation đáng tin cậy.
 
+## Accepted D0 inputs
+
+- Opening balance đến từ physical count mới theo [`../../03-data/templates/opening_stock.csv`](../../03-data/templates/opening_stock.csv), không copy legacy Excel balance.
+- F&B thiếu Lot/EXP xác minh được phải vào `QUARANTINE`.
+- Measured-sale/repack phải giữ genealogy về sealed package và Lot gốc.
+
 ## Work packages
 
 | ID | Nội dung | Deliverables | Verification |

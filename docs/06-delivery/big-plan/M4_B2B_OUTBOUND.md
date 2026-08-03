@@ -8,6 +8,15 @@
 
 Fulfill đơn B2B khối lượng lớn bằng reservation atomic, customer shelf-life eligibility, FEFO allocation nhiều Lot/location và shipment posting đúng một lần.
 
+## Accepted D0 inputs
+
+- Sales là nguồn order chính; RubikStock là operational system of record sau confirmation.
+- Một order có thể có nhiều shipment/trip.
+- Thiếu hàng hỗ trợ partial delivery và backorder.
+- Sales/warehouse users thao tác online-first trên PC/mobile.
+- Không import legacy sales history; forward-capture dùng [`../../03-data/templates/sales_capture.csv`](../../03-data/templates/sales_capture.csv) cho tới khi M4 order flow chạy thật.
+- Shelf-life contract dùng [`../../03-data/SHELF_LIFE_POLICY.md`](../../03-data/SHELF_LIFE_POLICY.md); FEFO override luôn một cấp Warehouse Manager approval và không bypass eligibility.
+
 ## Work packages
 
 | ID | Nội dung | Deliverables | Verification |

@@ -18,6 +18,11 @@ out/
 .env.local
 .env.*.local
 
+# Private business data
+private-data/
+*.private.csv
+docs/03-data/templates/filled/
+
 # Build artifacts
 dist/
 build/

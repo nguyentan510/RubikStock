@@ -15,9 +15,11 @@ RUBIK và nhóm triển khai có cùng một định nghĩa về product boundar
 | D0.1 | Scope và non-goals | Vision, phạm vi MVP, accounting boundary | Business owner review |
 | D0.2 | Users và operating ownership | Role list, task ownership, named approvers | Role walkthrough |
 | D0.3 | Hiện trạng dữ liệu/quy trình | AS-IS, nguồn Excel/Zalo/accounting, data owner | Source inventory được xác nhận |
-| D0.4 | Decision register | Owner/due disposition cho `TBD-001..014` | Không còn TBD không có owner |
-| D0.5 | Public/private boundary | License, data classification, repository policy | Security/business sign-off |
-| D0.6 | Product acceptance | Biên bản accepted/deferred/rejected | Gate D0 checklist pass |
+| D0.4 | Decision register | Owner/due disposition cho `TBD-001..014` | Đã đủ: 12 accepted, 2 deferred có owner |
+| D0.5 | Public/private boundary | Public source-visible/no-OSS-license disposition, data classification, repository policy | License review deferred tới khi có reuse/contribution intent |
+| D0.6 | Product acceptance | [`D0_PRODUCT_ACCEPTANCE.md`](D0_PRODUCT_ACCEPTANCE.md) | Gate D0 checklist và business acceptance |
+
+Workshop đang hoạt động tại [`D0_DECISION_WORKSHOP.md`](D0_DECISION_WORKSHOP.md).
 
 ## Thứ tự triển khai
 

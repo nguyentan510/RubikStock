@@ -2,64 +2,75 @@
 
 ## Trạng thái
 
-`PROPOSED`. Lựa chọn frontend/Supabase đi theo proposal từ discovery. Cách host production backend vẫn đang mở ở `TBD-013`.
+`ACCEPTED_TARGET`, `IMPLEMENTED_PARTIAL`. Kiến trúc Local Docker-first và VPS Docker Compose được chấp nhận qua [`ADR-0005`](adr/0005-local-docker-vps-target.md). Evidence hiện tại mới chứng minh PostgreSQL local tại host port `5433`; chưa chứng minh full-stack container hoặc VPS deployment.
 
-## Topology khuyến nghị
+## Target topology
 
 ```mermaid
 flowchart TB
-    GitHub["Public GitHub repository"] --> CI["GitHub Actions"]
-    CI --> Preview["Preview/Staging"]
-    CI --> Approval{"Production approval"}
-    Approval --> Web["Next.js PWA on Vercel"]
-    Approval --> API["FastAPI container service"]
-    Approval --> Job["Scheduled job runner"]
-    Web --> API
-    API --> Pool["Supabase connection endpoint/pooler"]
-    Job --> Pool
-    Pool --> PG["Supabase PostgreSQL"]
-    API --> Auth["Supabase Auth"]
-    API --> Storage["Supabase private Storage"]
+    GitHub["Public source-visible GitHub repository"] --> CI["GitHub Actions"]
+    CI --> Registry["Private/controlled image registry"]
+    Registry --> Approval{"Production approval"}
+    Approval --> VPS["Linux VPS"]
+    Client["PC/Mobile browser"] --> Proxy["Reverse proxy + TLS"]
+    subgraph VPS
+        Proxy --> Web["Next.js web container"]
+        Proxy --> API["FastAPI container"]
+        Web --> API
+        Job["Scheduled job using API image"] --> API
+        API --> PG["PostgreSQL"]
+        API --> Auth["Authentication adapter"]
+        API --> Storage["Private object storage adapter"]
+    end
+    PG --> Backup["Encrypted off-site backup"]
+    Storage --> Backup
 ```
 
-## Thành phần đề xuất
+## Thành phần
 
-| Thành phần | Công nghệ đề xuất | Trạng thái quyết định |
+| Thành phần | Baseline | Trạng thái |
 |---|---|---|
-| Web/PWA | Next.js + TypeScript trên Vercel | Đề xuất |
-| API | Python + FastAPI + Pydantic | Đề xuất bởi RUBIK |
-| Persistence | SQLAlchemy 2.x | Đề xuất bởi RUBIK |
-| Migration | Alembic là authority duy nhất cho schema migration | Đề xuất |
-| Database | Supabase PostgreSQL | Đề xuất bởi RUBIK |
-| Auth | Supabase Auth | Đề xuất |
-| Evidence files | Supabase private Storage | Đề xuất |
-| API runtime | Container platform; khuyến nghị mặc định là Cloud Run | Chưa quyết định |
-| Scheduled jobs | Cùng application image, chạy dưới dạng scheduled jobs riêng | Đề xuất |
-| CI/CD | GitHub Actions với environment protection | Đề xuất bởi RUBIK |
+| Web/PWA | Next.js + TypeScript | Local shell implemented; container pending D2 |
+| API | Python + FastAPI + Pydantic | Local foundation implemented |
+| Persistence | SQLAlchemy 2.x | Foundation implemented |
+| Migration | Alembic là schema migration authority | Baseline local verified |
+| Database | PostgreSQL | Local Docker verified; VPS design pending |
+| Auth | Server-side authentication adapter | Chưa chọn/implement |
+| Evidence files | Private object storage adapter | Chưa chọn/implement |
+| Reverse proxy/TLS | Container hoặc VPS-managed service | Chưa implement |
+| Scheduled jobs | Dùng cùng immutable API image, entrypoint riêng | Chưa implement |
+| CI/CD | GitHub Actions, image build/scan, protected deployment | Scaffold partial |
 
-## Tách môi trường
+Supabase Auth/Storage/PostgreSQL vẫn có thể là managed adapter sau này, nhưng domain layer không được phụ thuộc trực tiếp provider nếu chưa có ADR mới.
 
-- Local: chỉ dùng fake/seed data.
-- Staging: Supabase project riêng và storage riêng; data synthetic hoặc sanitized.
-- Production: project riêng, secrets riêng, backup riêng, access policy riêng, và manual deployment approval.
+## Environment topology
 
-Không môi trường nào được chia sẻ database credentials hoặc storage bucket.
+- Local: Docker Compose, fake deterministic seed, PostgreSQL host port `5433`; không chứa business data thật.
+- Staging: isolated Compose project/VPS hoặc tương đương; database, secrets, storage và hostname riêng; chỉ synthetic/sanitized data.
+- Production: Linux VPS target riêng; encrypted secrets, manual approval, backup và monitoring riêng.
 
-## Chính sách kết nối
+Không environment nào chia sẻ database credentials, volume, object namespace hoặc signing key.
 
-- Runtime dùng chế độ kết nối phù hợp với hosting persistent hoặc serverless.
-- Migration dùng direct connection có đặc quyền trong deployment job được kiểm soát.
-- Application database role theo least privilege; nếu tránh được thì không để nó làm migration owner.
-- Pool size và instance maximum phải bảo vệ database khỏi connection storm khi autoscaling.
+## Chính sách container và release
+
+- Image phải pin application version; không deploy từ mutable working tree trên server.
+- Compose file production không chứa secret value; secret được inject từ protected server environment.
+- Migration chạy như controlled one-off job trước compatible application rollout.
+- Application database role theo least privilege và không phải migration owner nếu có thể tách.
+- Container có health check, resource limit, restart policy và structured log.
+- Production database không publish port ra public internet.
+- Reverse proxy là public entrypoint duy nhất, bắt buộc TLS.
 
 ## Background work
 
-Các job ban đầu:
+Các job ban đầu gồm expiry/low-stock evaluation, replenishment recommendation, import/export và audit/consistency check. Forecast chỉ chạy khi M7 qualification gate cho phép.
 
-- Đánh giá cảnh báo expiry/low-stock.
-- Sinh replenishment recommendation.
-- Đánh giá forecast.
-- Xử lý import/export.
-- Kiểm tra audit/consistency.
+Mỗi job phải có stable run ID, idempotency policy, lock/concurrency rule, result status và bounded retry policy.
 
-Mỗi job phải có run ID ổn định, idempotency policy, lock/concurrency rule, result status, và retry policy.
+## D2 evidence còn thiếu
+
+- One-command full-stack local Compose setup.
+- Web/API containers và network policy.
+- Auth/private storage adapter decision và tests.
+- Clean VPS staging deploy/rollback command.
+- TLS, firewall, backup/restore và credential rotation rehearsal.

@@ -13,9 +13,9 @@
 
 | Khu vực | Documentation | Implementation | Runtime evidence | Production status |
 |---|---|---|---|---|
-| Product scope | Đã draft | N/A | N/A | Chưa sẵn sàng |
+| Product scope | D0 ready for acceptance review | N/A | N/A | Chưa sẵn sàng |
 | Business rules | Đề xuất | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
-| Architecture | Đề xuất | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
+| Architecture | Local Docker-first/VPS target accepted | Foundation partial | Local PostgreSQL only | Chưa sẵn sàng |
 | Technical foundation | Đã draft | Started | Local PostgreSQL verified | Chưa sẵn sàng |
 | Data model | Khái niệm | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
 | Inventory ledger | Đã draft contract | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
@@ -34,10 +34,14 @@ RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó 
 - Mô hình process AS-IS/TO-BE.
 - Business rule ID ổn định.
 - Contract cho state, exception, và approval.
-- Kiến trúc hệ thống/module/deployment/security được đề xuất.
+- Kiến trúc hệ thống/module/security đã draft; Local Docker-first và Linux VPS Docker Compose target được accepted qua ADR-0005.
 - Contract khái niệm cho data, ledger, UOM, Lot, và Excel cutover.
 - Roadmap, build order, traceability, tests, và operations draft.
 - Big Plan với Master Plan, Current Phase Tracker và roadmap chi tiết cho D0-D2/M1-M9.
+- D0 Decision Workshop đã có disposition cho đủ 14/14 quyết định: 12 `ACCEPTED`, 2 `DEFERRED_WITH_OWNER`, không còn Open vô chủ; Product Acceptance đang `READY_FOR_REVIEW`.
+- MISA integration được defer khỏi MVP với owner `Kế toán`; repository public source-visible nhưng chưa có OSS license với owner `CEO/Project Owner`.
+- Clean-start data pack gồm Product, UOM, Opening Stock, Receipt và Sales Capture CSV templates; legacy Lot/date/sales history không được import.
+- Customer shelf-life days/percent contract, mandatory return/destruction photo+note và provisional no-delete retention policy.
 - Documentation validator.
 - API FastAPI foundation với health/readyz/meta/OpenAPI/request logging.
 - Next.js web shell với typecheck, lint, và production build.
@@ -56,7 +60,7 @@ python scripts/validate_docs.py
 Kết quả quan sát được ngày 2026-08-03:
 
 ```text
-Validated 61 Markdown files.
+Validated 68 Markdown files.
 RUBIKSTOCK_DOCS_OK
 ```
 

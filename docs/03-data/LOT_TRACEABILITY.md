@@ -30,6 +30,15 @@ Supplier notice / selected lot
 - Repacking/transformation tạo một link genealogy có kiểm soát khi cần một internal traceability unit mới.
 - Block/recall trên Lot ảnh hưởng đến toàn bộ stock segment và mọi allocation mới.
 - Trace query phải bao gồm reconciliation quantity: received, shipped, returned, destroyed, adjusted, và remaining.
+- Product measured-sale/repacked phải trace từ internal package/unit mới về supplier/manufacturer Lot và sealed package gốc.
+
+## Accepted date policy
+
+- `LOT_MFG_EXP_REQUIRED`: supplier Lot, MFG và EXP bắt buộc cho chilled/frozen/dairy/short-life.
+- `LOT_EXP_REQUIRED`: supplier Lot và EXP bắt buộc cho F&B shelf-stable; MFG được capture khi có.
+- `NO_DATE_TRACKING`: chỉ dành cho non-food packaging/tools.
+- Product chưa phân loại dùng `LOT_EXP_REQUIRED`.
+- Không import legacy Lot/date. Opening stock được nhập từ physical count mới; F&B thiếu Lot/EXP xác minh được phải vào `QUARANTINE`.
 
 ## Kịch bản nghiệm thu
 

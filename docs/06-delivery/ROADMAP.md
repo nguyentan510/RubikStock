@@ -23,8 +23,8 @@ Roadmap chi tiết: [`big-plan/D1_BUSINESS_CONTRACTS.md`](big-plan/D1_BUSINESS_C
 
 Roadmap chi tiết: [`big-plan/D2_TECHNICAL_FOUNDATION.md`](big-plan/D2_TECHNICAL_FOUNDATION.md).
 
-- Quyết định Git repository/license.
-- FastAPI/Next.js skeleton, local environment, Supabase project.
+- Public source-visible/no-OSS-license repository governance và due gate cho license review.
+- FastAPI/Next.js skeleton, full-stack Local Docker Compose và Linux VPS target.
 - Authentication, authorization skeleton, migrations, CI, logging, OpenAPI.
 - Exit: local build có thể tái tạo, staging deploy cô lập, secret scan, migration reset, health smoke.
 

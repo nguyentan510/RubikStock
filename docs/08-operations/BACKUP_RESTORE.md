@@ -7,7 +7,7 @@ Khôi phục cả business data lẫn liên kết evidence về một điểm nh
 ## Phạm vi
 
 - PostgreSQL schema và data.
-- Đối tượng evidence của Supabase Storage và liên kết metadata.
+- Đối tượng evidence của private object storage và liên kết metadata.
 - Phiên bản deployment/migration.
 - Danh mục cấu hình môi trường nhưng không lộ secret value.
 
@@ -30,3 +30,5 @@ Khôi phục cả business data lẫn liên kết evidence về một điểm nh
 7. Ghi lại thời gian thực hiện, data gap, lỗi, và cách khắc phục.
 
 Production readiness đòi hỏi một bài test thành công, không chỉ là trạng thái backup của nhà cung cấp.
+
+Với VPS target, database volume hoặc object-storage volume trên cùng VPS không được tính là off-site backup. D2/M8 phải chứng minh encrypted copy sang failure domain khác và restore vào environment cô lập.

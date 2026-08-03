@@ -35,6 +35,6 @@ Tồn kho đúng trước -> Vận hành có kiểm soát -> Kế hoạch giải
 
 ## Chính sách repository
 
-Source repository được dự kiến là public, nhưng operational data là private. Tuyệt đối không commit dữ liệu khách hàng, nhà cung cấp, giá, credential, production export, proof giao hàng, dữ liệu an ninh kho, hoặc dữ liệu incident.
+Source repository hiện theo policy public source-visible, nhưng operational data là private. Tuyệt đối không commit dữ liệu khách hàng, nhà cung cấp, giá, credential, production export, proof giao hàng, dữ liệu an ninh kho, hoặc dữ liệu incident.
 
-Open-source license vẫn chưa được chọn. Việc public visibility không đồng nghĩa với quyền tái sử dụng; xem [`docs/00-product/OPEN_QUESTIONS.md`](docs/00-product/OPEN_QUESTIONS.md).
+Repository chưa có open-source license và không được mô tả là open source. Public visibility không tự cấp quyền tái sử dụng; license sẽ được review trước external contribution/distribution, và repository có thể chuyển private sau. Xem [`docs/00-product/OPEN_QUESTIONS.md`](docs/00-product/OPEN_QUESTIONS.md).

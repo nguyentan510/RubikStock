@@ -21,7 +21,16 @@ Flour B base UOM = gram
 1 sealed bag = 25,000 grams
 ```
 
-Ví dụ bột mì không tự động cho phép bán một bao đã mở theo gram. Việc đó cần một quy trình repacking, labeling, traceability, và food-safety đã được chấp nhận.
+RUBIK đã chấp nhận bán một số product từ bao đã mở theo gram/kg. Behavior này chỉ bật theo product policy và bắt buộc quy trình package-open/repacking có genealogy tới Lot gốc.
+
+## Product packaging policy
+
+- `allows_case_break`: cho phép xé case để bán unit/chai/gói nguyên seal.
+- `allows_measured_sale`: cho phép mở package và bán quantity đo theo gram/kg.
+- `measurement_uom`: UOM đo; product theo weight mặc định dùng `gram` làm base UOM.
+- `measurement_precision`: số chữ số thập phân/step được chấp nhận theo thiết bị cân và policy.
+
+Khi một sealed package được mở/repack, system phải ghi original Lot/package, quantity trước/sau, actor/time/location và internal traceability unit nếu cần. Không được tạo manufacturer Lot mới.
 
 ## Quy tắc posting
 
@@ -42,6 +51,6 @@ Thay đổi conversion trong tương lai không bao giờ làm đổi nghĩa c�
 - UOM dùng cho sales/purchase phải được bật cho product tại business date.
 - Conversion version dùng cho movement đã post là bất biến.
 
-## Quyết định mở
+## Accepted D0 decision
 
-`TBD-002` phải phân loại product thực tế vào nhóm sealed-only, break-case, measured quantity, hoặc repacked SKU trước khi implementation.
+`TBD-002` đã accepted: từng product được phân loại `sealed-only`, `break-case` hoặc `measured-sale/repacked`. Giá trị cụ thể của khoảng 300 SKU sẽ được khai báo qua master-data template ở M1.

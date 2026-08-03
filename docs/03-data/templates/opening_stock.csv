@@ -1,0 +1,1 @@
+count_batch_ref,warehouse_code,zone_code,location_code,sku,supplier_code,supplier_lot,mfg_date,exp_date,inventory_status,quantity,uom,counted_at,counted_by,source_note

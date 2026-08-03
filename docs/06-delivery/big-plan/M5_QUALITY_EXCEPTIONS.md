@@ -8,6 +8,12 @@
 
 Mọi hàng lỗi, hết hạn, trả về, recall và hủy đều đi qua state/approval/audit rõ ràng; không exception nào âm thầm trở lại available hoặc biến mất khỏi history.
 
+## Accepted D0 inputs
+
+- Return và destruction bắt buộc ít nhất một private photo + note.
+- Evidence không auto-delete theo policy hiện hành.
+- Destruction vẫn cần independent approver; no-delete không cho phép sửa/xóa historical outcome.
+
 ## Work packages
 
 | ID | Nội dung | Deliverables | Verification |
@@ -33,6 +39,7 @@ Mọi hàng lỗi, hết hạn, trả về, recall và hủy đều đi qua stat
 - Receipt return không đồng nghĩa restock.
 - Manufacturer Lot genealogy không bị mất hoặc tự tạo lại tùy tiện.
 - Destruction requester và approver phải độc lập theo accepted threshold.
+- Return/destruction thiếu photo hoặc note không được hoàn tất workflow.
 - `DESTROYED` không còn on-hand nhưng vẫn còn historical trace.
 
 ## Exit gate

@@ -8,6 +8,16 @@
 
 Product, UOM, partner và physical warehouse map đủ chính xác để mọi quantity sau này có product/location/UOM hợp lệ.
 
+## Accepted D0 inputs
+
+- 2 warehouse và khoảng 300 SKU.
+- Four-zone baseline: `INB`, `AVL`, `QTN`, `OUT`.
+- Primary pilot: `WH-01`; physical-label pilot bắt đầu tại `WH-01-AVL`.
+- Operator devices: PC/mobile; MVP online-first.
+- Không import legacy master/history trực tiếp; tạo clean-start data theo [`../../03-data/templates/README.md`](../../03-data/templates/README.md).
+- Product được cấu hình `allows_case_break`, `allows_measured_sale` và Lot/date tracking policy.
+- Dealer/shop shelf-life policy hỗ trợ days/percent/both; input contract tại [`../../03-data/templates/customer_shelf_life_policy.csv`](../../03-data/templates/customer_shelf_life_policy.csv).
+
 ## Work packages
 
 | ID | Nội dung | Deliverables | Verification |
