@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: rubikstock
+      POSTGRES_USER: rubikstock
+      POSTGRES_PASSWORD: rubikstock
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U rubikstock -d rubikstock"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - rubikstock-postgres:/var/lib/postgresql/data
+
+volumes:
+  rubikstock-postgres:
