@@ -16,9 +16,9 @@ Master Plan dùng ba nguyên tắc:
 
 UI Product, Nhập kho hoặc Xuất kho có thể nhìn hoàn chỉnh nhưng vẫn sai nếu UOM, Lot, balance, reservation và approval chưa có invariant. Vì vậy, mỗi phase phải đóng đồng thời data contract, domain behavior, API, UI, tests và operations tối thiểu.
 
-### Vì sao D0-D1 vẫn phải đóng dù D2 đã bắt đầu
+### Vì sao D1 vẫn phải đóng dù D2 đã bắt đầu
 
-D2 hiện đã có local technical foundation. Tuy nhiên 14 mục `TBD` vẫn ảnh hưởng trực tiếp tới schema và workflow. Foundation có thể tiếp tục harden, nhưng không được đưa domain schema M1-M2 lên trạng thái accepted trước khi các quyết định liên quan được chốt hoặc defer có chủ ý.
+D0 đã được accepted với 14/14 TBD có disposition. D2 hiện có local technical foundation, nhưng rule/state/approval D1 vẫn ảnh hưởng trực tiếp tới schema và workflow. Foundation có thể tiếp tục harden, nhưng không được đưa domain schema M1-M2 lên trạng thái accepted trước khi các contract D1 liên quan được chấp nhận.
 
 ### Vì sao M2 là trục chính
 
@@ -51,8 +51,8 @@ M3 và một phần M4 có thể phát triển song song sau khi M2 contracts �
 
 | Phase | Documentation | Implementation | Runtime evidence | Quyết định |
 |---|---|---|---|---|
-| D0 | 14/14 TBD có disposition | N/A | Product acceptance ready for review | Active decision track |
-| D1 | Draft rules/contracts | Chưa có domain code | Chưa có acceptance | Active decision track |
+| D0 | Accepted | N/A | Product Acceptance bởi Quản lý Kho | Gate pass |
+| D1 | Accepted | Chưa có domain code | Final acceptance bởi Quản lý Kho | Gate pass |
 | D2 | Draft + scaffold | Partial | Local PostgreSQL/API/web verified | Active engineering track |
 | M1-M8 | Planned | Chưa bắt đầu | Chưa có | Locked theo dependency |
 | M9 | Định hướng | Chưa bắt đầu | Chưa có benefit evidence | Deferred |
@@ -135,10 +135,10 @@ Không khóa kế hoạch theo số tuần khi chưa biết team capacity. Dùng
 
 Work-package status hiện hành được theo dõi tại [`CURRENT_PHASE_TRACKER.md`](CURRENT_PHASE_TRACKER.md).
 
-1. Review D0.6 Product Acceptance; 14/14 TBD đã có disposition (12 accepted, 2 deferred có owner).
-2. Đóng D1.1-D1.7: business acceptance cho inventory, Lot, UOM, outbound, return và delivery.
-3. Song song harden D2.1-D2.9: auth/RBAC, clean migration reset, staging và security findings.
-4. Chỉ sau đó mở M1.1 cho master-data schema.
+1. Đóng D2.2 full-stack Local Docker Compose bằng runtime smoke.
+2. Đóng D2.3 migration lifecycle, sau đó D2.4-D2.5 auth/RBAC.
+3. Tiếp tục D2.6-D2.9 contract/private files/CI/staging theo dependency.
+4. Chỉ sau D2 gate tương ứng mới mở M1.1 cho master-data schema.
 
 ## Scope control
 

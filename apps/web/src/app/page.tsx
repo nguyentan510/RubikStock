@@ -51,7 +51,7 @@ export default function HomePage() {
           <h1 className="title">RubikStock đang dựng nền kỹ thuật cho vận hành kho B2B.</h1>
           <p className="lede">
             Đây là xương sống ban đầu cho FastAPI API, Next.js web shell, PostgreSQL local,
-            Supabase-ready configuration, migration scaffold, logging, OpenAPI, và CI.
+            provider-neutral configuration, migration scaffold, logging, OpenAPI, và CI.
           </p>
         </section>
 

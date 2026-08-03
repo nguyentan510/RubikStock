@@ -1,8 +1,9 @@
 # D0 Product Acceptance Review
 
-- Status: `READY_FOR_REVIEW`
+- Status: `ACCEPTED`
 - Prepared: 2026-08-03
-- Proposed approver: `Quản lý Kho`
+- Approved by: `Quản lý Kho`
+- Acceptance date: 2026-08-03
 - Scope: D0 product truth và disposition cho `TBD-001..014`
 
 ## Outcome đề nghị
@@ -35,18 +36,18 @@ Hai mục deferred không chặn D1/M1 vì chúng không được phép tạo in
 - [x] Shelf-life, FEFO override, adjustment, return/destruction evidence và retention đã có disposition.
 - [x] Online-first runtime và Local Docker-first/VPS target đã có disposition.
 - [x] Không còn TBD chỉ mang status Open mà không có owner.
-- [ ] `Quản lý Kho` review và ghi acceptance D0.
+- [x] `Quản lý Kho` review và ghi acceptance D0.
 
 ## Acceptance record
 
-Chỉ đổi status thành `ACCEPTED` sau khi người dùng/business xác nhận rõ ràng.
+Product Acceptance được người dùng xác nhận rõ ràng trong project session ngày 2026-08-03.
 
 | Field | Value |
 |---|---|
-| Decision | `PENDING_BUSINESS_ACCEPTANCE` |
+| Decision | `ACCEPTED` |
 | Approver | `Quản lý Kho` |
-| Date | Chưa ghi |
-| Notes | Chờ review checklist và deferred controls |
+| Date | 2026-08-03 |
+| Notes | Chấp nhận D0 với 12 decision accepted và 2 decision deferred có owner/due gate |
 
 ## Sau khi D0 được accepted
 

@@ -6,17 +6,17 @@
 - Repository path: `D:\RubikStock`
 - Git repository: Initialized
 - Code implementation: D2 technical foundation scaffold started
-- Runtime environment: Local PostgreSQL đã được xác minh qua Docker Desktop trên host port `5433`
+- Runtime environment: Full-stack Local Docker Compose đã verify: PostgreSQL `5433`, API `8000`, web `3000`
 - Production readiness: Chưa đánh giá
 
 ## Bảng maturity
 
 | Khu vực | Documentation | Implementation | Runtime evidence | Production status |
 |---|---|---|---|---|
-| Product scope | D0 ready for acceptance review | N/A | N/A | Chưa sẵn sàng |
-| Business rules | Đề xuất | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
+| Product scope | D0 accepted | N/A | Business acceptance record | Chưa sẵn sàng |
+| Business rules | D1 accepted | Chưa bắt đầu | Final acceptance record | Chưa sẵn sàng |
 | Architecture | Local Docker-first/VPS target accepted | Foundation partial | Local PostgreSQL only | Chưa sẵn sàng |
-| Technical foundation | Đã draft | Started | Local PostgreSQL verified | Chưa sẵn sàng |
+| Technical foundation | Đã draft | Started | Full-stack Local Compose verified | Chưa sẵn sàng |
 | Data model | Khái niệm | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
 | Inventory ledger | Đã draft contract | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
 | Inbound/outbound | Đã draft workflow | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
@@ -26,7 +26,7 @@
 
 ## Kết luận hiện tại
 
-RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó đã có API/web skeleton, migration scaffold, bootstrap scripts, CI scaffold, và local PostgreSQL runtime evidence; nhưng chưa phải contract-accepted hoặc production-ready.
+RubikStock đã pass **D0 Product Acceptance** và **D1 Business Contract Acceptance**; **D2 technical foundation** đang in progress. API/web skeleton, migration scaffold, bootstrap scripts, CI scaffold và local PostgreSQL đã có evidence; full technical foundation, domain implementation và production qualification chưa pass.
 
 ## Evidence đã tạo trong slice này
 
@@ -38,7 +38,8 @@ RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó 
 - Contract khái niệm cho data, ledger, UOM, Lot, và Excel cutover.
 - Roadmap, build order, traceability, tests, và operations draft.
 - Big Plan với Master Plan, Current Phase Tracker và roadmap chi tiết cho D0-D2/M1-M9.
-- D0 Decision Workshop đã có disposition cho đủ 14/14 quyết định: 12 `ACCEPTED`, 2 `DEFERRED_WITH_OWNER`, không còn Open vô chủ; Product Acceptance đang `READY_FOR_REVIEW`.
+- D0 Decision Workshop đã có disposition cho đủ 14/14 quyết định: 12 `ACCEPTED`, 2 `DEFERRED_WITH_OWNER`, không còn Open vô chủ; Product Acceptance được `Quản lý Kho` accepted ngày 2026-08-03.
+- D1 Batch A-E và final D1.9 đã được `Quản lý Kho` accepted: 58 contract points, 56 scenarios và cross-document review.
 - MISA integration được defer khỏi MVP với owner `Kế toán`; repository public source-visible nhưng chưa có OSS license với owner `CEO/Project Owner`.
 - Clean-start data pack gồm Product, UOM, Opening Stock, Receipt và Sales Capture CSV templates; legacy Lot/date/sales history không được import.
 - Customer shelf-life days/percent contract, mandatory return/destruction photo+note và provisional no-delete retention policy.
@@ -46,7 +47,8 @@ RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó 
 - API FastAPI foundation với health/readyz/meta/OpenAPI/request logging.
 - Next.js web shell với typecheck, lint, và production build.
 - Alembic baseline migration, `uv.lock`, `package-lock.json`, và bootstrap scripts.
-- Docker Compose PostgreSQL mapping `localhost:5433 -> container:5432`.
+- Docker Compose graph `postgres -> migrate -> api -> web`; PostgreSQL `5433`, API `8000`, web `3000`.
+- API/web production-style Dockerfiles, standalone Next.js output và full-stack smoke script.
 - Git repository initialization.
 
 ## Verification
@@ -60,7 +62,7 @@ python scripts/validate_docs.py
 Kết quả quan sát được ngày 2026-08-03:
 
 ```text
-Validated 68 Markdown files.
+Validated 70 Markdown files.
 RUBIKSTOCK_DOCS_OK
 ```
 
@@ -77,6 +79,8 @@ Additional implementation verification in this slice:
 - `npm run lint`
 - `npm run typecheck`
 - `npm run build`
+- `npm run smoke:stack`: `RUBIKSTOCK_STACK_SMOKE_OK`
+- `docker compose ps -a`: PostgreSQL/API/web healthy; migration service `Exited (0)`
 
 ## Known limitations
 

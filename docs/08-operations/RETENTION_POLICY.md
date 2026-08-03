@@ -19,7 +19,7 @@
 - Warehouse Manager review tác động vận hành và traceability.
 - Không user hoặc scheduled job nào được purge record khi chưa có policy change đã duyệt.
 - Mọi deletion mechanism trong tương lai phải có scope, reason, actor, approval, dry-run và immutable audit record.
-- Database record và private Storage object phải được xử lý đồng bộ; không để orphan hoặc mất genealogy.
+- Database record và private object-storage object phải được xử lý đồng bộ; không để orphan hoặc mất genealogy.
 
 ## Production review condition
 

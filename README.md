@@ -32,6 +32,9 @@ Tồn kho đúng trước -> Vận hành có kiểm soát -> Kế hoạch giải
 - `npm run dev` - khởi chạy API và web dev servers sau khi setup local xong.
 - `npm run check` - chạy docs validation, API tests, migration upgrade, và web lint/typecheck/build.
 - `npm run smoke:api` - chạy HTTP readiness smoke tạm thời qua API và local PostgreSQL.
+- `npm run stack:up` - build và chạy PostgreSQL + one-off Alembic migration + FastAPI + Next.js bằng Docker Compose.
+- `npm run smoke:stack` - build/start full stack, kiểm tra API readiness và web HTTP; success marker `RUBIKSTOCK_STACK_SMOKE_OK`.
+- `npm run stack:down` - dừng full stack nhưng không xóa PostgreSQL volume.
 
 ## Chính sách repository
 

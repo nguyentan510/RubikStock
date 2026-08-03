@@ -35,7 +35,7 @@
 
 ## Guardrails
 
-- Áp dụng `PLN-001..006`.
+- Áp dụng `PLN-001..007`.
 - Sales bằng 0 trong stockout window không tự động bằng demand bằng 0.
 - Lunar event phải map sang solar date riêng cho từng năm.
 - Recommendation không tự tạo/approve purchase order.

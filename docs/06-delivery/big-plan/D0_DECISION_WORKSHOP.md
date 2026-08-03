@@ -1,6 +1,6 @@
 # D0 Decision Workshop
 
-- Status: `IN_PROGRESS`
+- Status: `COMPLETED`
 - Started: 2026-08-03
 - Facilitator: Codex
 - Business decision owner: `Quản lý Kho`
@@ -200,4 +200,4 @@ Mỗi câu trả lời được chấp nhận phải ghi:
 
 ## Bước tiếp theo
 
-Batch A-D đã có disposition cho đủ 14 TBD. D0 chuyển sang [`D0_PRODUCT_ACCEPTANCE.md`](D0_PRODUCT_ACCEPTANCE.md); workshop không tự tạo acceptance thay cho business owner.
+Batch A-D đã có disposition cho đủ 14 TBD. [`D0_PRODUCT_ACCEPTANCE.md`](D0_PRODUCT_ACCEPTANCE.md) đã được `Quản lý Kho` chấp nhận ngày 2026-08-03.

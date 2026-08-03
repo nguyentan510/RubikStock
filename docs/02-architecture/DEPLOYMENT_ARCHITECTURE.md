@@ -2,7 +2,7 @@
 
 ## Trạng thái
 
-`ACCEPTED_TARGET`, `IMPLEMENTED_PARTIAL`. Kiến trúc Local Docker-first và VPS Docker Compose được chấp nhận qua [`ADR-0005`](adr/0005-local-docker-vps-target.md). Evidence hiện tại mới chứng minh PostgreSQL local tại host port `5433`; chưa chứng minh full-stack container hoặc VPS deployment.
+`ACCEPTED_TARGET`, `IMPLEMENTED_PARTIAL`. Kiến trúc Local Docker-first và VPS Docker Compose được chấp nhận qua [`ADR-0005`](adr/0005-local-docker-vps-target.md). Full-stack Local Compose đã runtime-verified; VPS deployment chưa được chứng minh.
 
 ## Target topology
 
@@ -30,8 +30,8 @@ flowchart TB
 
 | Thành phần | Baseline | Trạng thái |
 |---|---|---|
-| Web/PWA | Next.js + TypeScript | Local shell implemented; container pending D2 |
-| API | Python + FastAPI + Pydantic | Local foundation implemented |
+| Web/PWA | Next.js + TypeScript | Standalone production container local verified |
+| API | Python + FastAPI + Pydantic | Container + readiness local verified |
 | Persistence | SQLAlchemy 2.x | Foundation implemented |
 | Migration | Alembic là schema migration authority | Baseline local verified |
 | Database | PostgreSQL | Local Docker verified; VPS design pending |
@@ -39,7 +39,7 @@ flowchart TB
 | Evidence files | Private object storage adapter | Chưa chọn/implement |
 | Reverse proxy/TLS | Container hoặc VPS-managed service | Chưa implement |
 | Scheduled jobs | Dùng cùng immutable API image, entrypoint riêng | Chưa implement |
-| CI/CD | GitHub Actions, image build/scan, protected deployment | Scaffold partial |
+| CI/CD | GitHub Actions, image build/scan, protected deployment | Scaffold partial; container build chưa vào CI |
 
 Supabase Auth/Storage/PostgreSQL vẫn có thể là managed adapter sau này, nhưng domain layer không được phụ thuộc trực tiếp provider nếu chưa có ADR mới.
 
@@ -67,10 +67,17 @@ Các job ban đầu gồm expiry/low-stock evaluation, replenishment recommendat
 
 Mỗi job phải có stable run ID, idempotency policy, lock/concurrency rule, result status và bounded retry policy.
 
+## D2 local evidence
+
+- `npm run smoke:stack` build/start graph `postgres -> migrate -> api -> web`.
+- PostgreSQL healthy tại host `5433`; migration one-off exit `0`.
+- API `readyz` trả database `ok` tại host `8000`.
+- Next.js standalone container healthy và HTTP `200` tại host `3000`.
+- Success marker: `RUBIKSTOCK_STACK_SMOKE_OK`.
+
 ## D2 evidence còn thiếu
 
-- One-command full-stack local Compose setup.
-- Web/API containers và network policy.
+- Clean-machine reproduction ngoài development machine hiện tại.
 - Auth/private storage adapter decision và tests.
 - Clean VPS staging deploy/rollback command.
 - TLS, firewall, backup/restore và credential rotation rehearsal.

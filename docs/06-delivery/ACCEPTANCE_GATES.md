@@ -2,12 +2,18 @@
 
 ## Gate D0 - Product acceptance
 
+- Status: `PASSED` ngày 2026-08-03, approved by `Quản lý Kho`.
+- Evidence: [`big-plan/D0_PRODUCT_ACCEPTANCE.md`](big-plan/D0_PRODUCT_ACCEPTANCE.md).
+
 - Business context và scope được RUBIK review.
 - Accounting boundary được chấp nhận.
 - Open questions được gán owner.
 - Không có confidential data trong public repository.
 
 ## Gate D1 - Business contract acceptance
+
+- Status: `PASSED` ngày 2026-08-03, approved by `Quản lý Kho`.
+- Evidence: [`big-plan/D1_FINAL_ACCEPTANCE.md`](big-plan/D1_FINAL_ACCEPTANCE.md).
 
 - Rule cho inventory, UOM, Lot/date, FEFO, return, destruction, delivery được chấp nhận hoặc thay đổi rõ ràng.
 - State transition và ownership của approval được chấp nhận.

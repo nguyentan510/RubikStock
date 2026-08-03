@@ -2,7 +2,7 @@
 
 | Environment | Mục đích | Data | Deploy policy |
 |---|---|---|---|
-| Local | Phát triển và automated tests bằng Docker Compose | Chỉ dùng fake deterministic seed | Do developer kiểm soát; PostgreSQL host port `5433` |
+| Local | Phát triển và automated tests bằng full-stack Docker Compose | Chỉ dùng fake deterministic seed | PostgreSQL `5433`, API `8000`, web `3000` |
 | Staging | Integration, migration rehearsal, UAT trên isolated Compose/VPS target | Chỉ synthetic/sanitized | Workflow có kiểm soát; tách khỏi production |
 | Production | Linux VPS Docker Compose vận hành RUBIK thật | Dữ liệu confidential thật | Protected environment và manual approval |
 

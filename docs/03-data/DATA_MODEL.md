@@ -2,7 +2,7 @@
 
 ## Trạng thái
 
-`PROPOSED` conceptual contract. Đây chưa phải migration và không được báo cáo là implemented.
+`D1 ACCEPTED CONCEPTUAL CONTRACT`. Đây chưa phải migration và không được báo cáo là implemented.
 
 ## Quan hệ lõi
 

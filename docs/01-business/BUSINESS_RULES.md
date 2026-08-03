@@ -2,7 +2,17 @@
 
 ## Trạng thái và định danh
 
-Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. Rule ID là ổn định và phải được dùng trong test, API, tiêu chí nghiệm thu UI, và traceability matrix.
+Document đang `D1 ACCEPTED`. Rule ID là ổn định và phải được dùng trong test, API, tiêu chí nghiệm thu UI, và traceability matrix.
+
+| Rule group | Status | Evidence |
+|---|---|---|
+| `INV-001..008` | `ACCEPTED` | D1 Batch A, `Quản lý Kho`, 2026-08-03 |
+| `LOT-001..006` | `ACCEPTED` | D1 Batch A, `Quản lý Kho`, 2026-08-03 |
+| `UOM-001..004` | `ACCEPTED` | D1 Batch A, `Quản lý Kho`, 2026-08-03 |
+| `INB-001..009` | `ACCEPTED` | D1 Batch B, `Quản lý Kho`, 2026-08-03 |
+| `OUT-001..011` | `ACCEPTED` | D1 Batch C, `Quản lý Kho`, 2026-08-03 |
+| `QLT-001..004`, `RET-001..005`, `DST-001..004`, `DEL-001..007` | `ACCEPTED` | D1 Batch D, `Quản lý Kho`, 2026-08-03 |
+| `PLN-001..007`, `AUD-001..006`, `SEC-001..006` | `ACCEPTED` | D1 Batch E, `Quản lý Kho`, 2026-08-03 |
 
 ## Inventory truth
 
@@ -37,6 +47,20 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | UOM-003 | Hàng rời/đơn chiếc dùng base quantity nguyên chính xác; kết quả lẻ bị từ chối trừ khi product cho phép measured quantity một cách rõ ràng. |
 | UOM-004 | Chỉ được mở/bẻ seal của package khi product có policy repacking/traceability đã được chấp nhận. |
 
+## Inbound, discrepancy, QC và put-away
+
+| ID | Rule |
+|---|---|
+| INB-001 | Receipt nên tham chiếu approved Purchase Order khi có; unplanned receipt chỉ được nhận vào controlled receiving/quarantine và cần reason cùng `Warehouse Manager` approval trước khi release. |
+| INB-002 | Receipt line phải lưu expected quantity và actual received quantity riêng; inventory chỉ tăng theo actual quantity đã xác nhận. |
+| INB-003 | Short receipt phải giữ disposition rõ cho phần thiếu: `WAIT_REMAINDER`, `BACKORDER_SUPPLIER` hoặc `CLOSE_WITH_SHORTFALL`. |
+| INB-004 | Phần over receipt phải được trace/cách ly và cần `Warehouse Manager` approval trước khi release; không sửa expected quantity để che discrepancy. |
+| INB-005 | Product, effective UOM conversion, supplier Lot và MFG/EXP phải được validate theo tracking policy; thiếu conversion thì reject line, thiếu Lot/date bắt buộc thì quarantine. |
+| INB-006 | Mọi receipt có baseline condition check; `qc_required` hoặc condition/label/date/storage exception phải vào `QC_HOLD/QUARANTINE` chờ inspection. |
+| INB-007 | Receipt quantity có condition khác nhau phải được split theo status/disposition nhưng tổng split phải reconcile actual received quantity. |
+| INB-008 | Release và put-away là command riêng; put-away phải xác nhận Product/Lot/quantity/destination và post transfer atomic. |
+| INB-009 | Receipt command phải idempotent: cùng key/cùng payload trả kết quả gốc; cùng key/khác payload conflict; không post stock trùng. |
+
 ## Sales, reservation, và outbound
 
 | ID | Rule |
@@ -51,18 +75,25 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | OUT-008 | Xác nhận shipment phải ghi nhận stock-out movement và tiêu thụ reservation tương ứng một cách atomic. |
 | OUT-009 | Nhu cầu đã xác nhận nhưng không được đáp ứng phải được phân loại rõ: partial, backorder, substitute proposal, rejected, hoặc lost sale. |
 | OUT-010 | Trạng thái order, stock, hoặc shipment không rõ sẽ chặn tiếp tục để tránh thao tác không an toàn cho đến khi reconcile xong. |
+| OUT-011 | Active reservation không được tự hết hạn âm thầm trong MVP; chỉ shipment, authorized order change/cancellation hoặc audited reconciliation command được tiêu thụ/giảm/giải phóng reservation. |
 
 ## Quality, returns, và destruction
 
 | ID | Rule |
 |---|---|
 | QLT-001 | Stock ở trạng thái `QC_HOLD`, `QUARANTINE`, `DAMAGED`, `EXPIRED`, `RECALLED`, hoặc `DESTROY_PENDING` không được bán hay allocate. |
+| QLT-002 | Quality hold có thể scope theo stock segment; Lot-level recall/block phải áp dụng trên mọi location đang giữ Lot. |
+| QLT-003 | Quality inspection phải giữ subject quantity/Lot/location/status version, inspector, time, findings, evidence và disposition. |
+| QLT-004 | Release/reclassification chỉ áp dụng đúng approved quantity/version bằng inventory operation; inspection một segment không tự release toàn Lot. |
 | RET-001 | Hàng khách trả về luôn phải vào trạng thái/location quarantine trước bất kỳ quyết định restock nào. |
 | RET-002 | Return record phải giữ nguyên order gốc, shipment, product, Lot, quantity, reason, note và ít nhất một private photo evidence. |
 | RET-003 | Restock cần kết quả inspection và disposition đã được duyệt; chỉ nhận hàng không đủ để trả lại availability. |
 | RET-004 | Return không tạo manufacturer lot mới, trừ khi một quy trình transformation/repacking đã được ghi nhận yêu cầu một internal traceability unit mới. |
+| RET-005 | Return receipt và disposition command phải idempotent; retry không được tạo duplicate on-hand, restock hoặc destruction. |
 | DST-001 | Destruction cần product, Lot, quantity, reason/note, requester, independent approver, execution record, và ít nhất một private photo evidence. |
 | DST-002 | Số lượng `DESTROYED` là kết quả lịch sử của movement và không còn là on hand. |
+| DST-003 | Requester và approver destruction phải khác nhau; approval gắn với đúng request version và quantity. |
+| DST-004 | Destruction execution phải idempotent và post đúng một movement effect; quantity khác approved quantity phải được duyệt lại. |
 
 ## Delivery
 
@@ -73,6 +104,8 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | DEL-003 | Delivery bị partial/failed phải ghi riêng số lượng đã giao và số lượng mang về. |
 | DEL-004 | Hàng vật lý mang về phải được reconcile vào một return location được kiểm soát trước khi trip được đóng. |
 | DEL-005 | POD và evidence cho delivery exception là private và có kiểm soát truy cập. |
+| DEL-006 | Loading variance phải chặn departure; trip không được close khi returned quantity hoặc delivery variance chưa reconcile. |
+| DEL-007 | Delivery-result command phải idempotent và chỉ được thay đổi delivery state; driver không được trực tiếp mutate inventory/reservation/allocation. |
 
 ## Replenishment và forecast
 
@@ -84,6 +117,7 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | PLN-004 | Khoảng thời gian stockout/lost-sale phải được đánh dấu để số bán bằng 0 không tự động bị hiểu là demand bằng 0. |
 | PLN-005 | Sự kiện âm lịch/mùa vụ phải dùng solar date theo từng năm và demand window trước sự kiện có thể cấu hình. |
 | PLN-006 | ML forecasting không được đẩy lên trước khi các gate về baseline quality, WAPE, bias, và backtesting được định nghĩa và pass. |
+| PLN-007 | Khi chưa đủ forward-qualified history, planning phải dùng deterministic min/max, safety stock/reorder policy và human review; manual override giữ recommended/selected value cùng reason. |
 
 ## Audit và security
 
@@ -93,6 +127,11 @@ Các rule này ở trạng thái `PROPOSED` cho đến khi RUBIK chấp nhận. 
 | AUD-002 | Identity đăng nhập phải là cá nhân được nêu tên; cấm dùng shared accountable-user credentials. |
 | AUD-003 | Timestamp nghiệp vụ phải phân biệt thời điểm sự kiện xảy ra với thời điểm nó được ghi nhận. |
 | AUD-004 | Transaction, audit, POD, return và destruction evidence không được auto-delete trong policy hiện tại; thay đổi retention/deletion cần CEO final approval, Warehouse Manager review và audit record. |
+| AUD-005 | Audit event và posted transaction không được sửa/xóa để đổi nghĩa; correction tạo record mới có link về record gốc. |
+| AUD-006 | Privileged command/audit phải giữ correlation, idempotency hoặc operation reference đủ để trace request -> decision -> state effect. |
 | SEC-001 | Secret key, database credential, và dữ liệu kinh doanh thật không bao giờ được commit lên public repository. |
 | SEC-002 | Browser client không bao giờ nhận database secret/service-role credentials. |
 | SEC-003 | Authorization phải được enforce ở server-side và được test xác minh; ẩn UI không phải là authorization. |
+| SEC-004 | Private evidence chỉ được truy cập qua server-authorized, record-scoped, short-lived mechanism; metadata link business record và access quan trọng phải audit được. |
+| SEC-005 | Least-privilege policy phải giới hạn user/service/job theo role và assigned scope; separation of duty được kiểm tra tại execution time. |
+| SEC-006 | Local/test/staging/production tách data và secret; non-production không được dùng production database/evidence data ngoài quy trình sanitized được duyệt. |

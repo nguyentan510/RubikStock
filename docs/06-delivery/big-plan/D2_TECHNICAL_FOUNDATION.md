@@ -12,10 +12,10 @@ Có môi trường development/staging tái tạo được, authentication/autho
 
 - FastAPI, Pydantic, SQLAlchemy và Alembic scaffold.
 - Next.js/TypeScript web shell.
-- Docker Compose PostgreSQL tại `localhost:5433`.
+- Full-stack Docker Compose: PostgreSQL `5433`, API `8000`, web `3000` và one-off Alembic migration.
 - Health/readiness/meta/OpenAPI, structured logging và CORS.
 - Local setup/check/smoke scripts và CI scaffold.
-- Local PostgreSQL, API tests, lint, typecheck và web build evidence.
+- Local full-stack smoke, API tests, lint, typecheck và web build evidence.
 
 ## Work packages
 
@@ -44,7 +44,7 @@ Có môi trường development/staging tái tạo được, authentication/autho
 ## Finding đang mở
 
 - Authentication/authorization chưa được triển khai.
-- Full-stack Docker Compose và staging VPS chưa có runtime evidence.
+- Full-stack Local Docker Compose đã verified; clean-machine reproduction và staging VPS chưa có evidence.
 - `npm audit` có ba finding mức `high` trong dependency tree.
 - Baseline migration chưa chứa domain schema; clean reset policy cần evidence trước M1.
 - Repository public source-visible nhưng chưa có OSS license; license selection deferred có owner và due gate.

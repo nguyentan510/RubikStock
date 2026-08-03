@@ -52,6 +52,8 @@ REQUIRED_FILES = (
     "docs/06-delivery/big-plan/D0_PRODUCT_ACCEPTANCE.md",
     "docs/06-delivery/big-plan/D0_PRODUCT_TRUTH.md",
     "docs/06-delivery/big-plan/D1_BUSINESS_CONTRACTS.md",
+    "docs/06-delivery/big-plan/D1_BUSINESS_ACCEPTANCE.md",
+    "docs/06-delivery/big-plan/D1_FINAL_ACCEPTANCE.md",
     "docs/06-delivery/big-plan/D2_TECHNICAL_FOUNDATION.md",
     "docs/06-delivery/big-plan/M1_MASTER_DATA_WAREHOUSE_MAP.md",
     "docs/06-delivery/big-plan/M2_INVENTORY_LEDGER.md",
@@ -77,7 +79,9 @@ REQUIRED_FILES = (
 )
 
 LINK_RE = re.compile(r"(?<!!)\[[^]]+\]\(([^)]+)\)")
-RULE_ID_RE = re.compile(r"\b(?:INV|LOT|UOM|OUT|QLT|RET|DST|DEL|PLN|AUD|SEC)-\d{3}\b")
+RULE_ID_RE = re.compile(
+    r"(?m)^\| ((?:INV|LOT|UOM|INB|OUT|QLT|RET|DST|DEL|PLN|AUD|SEC)-\d{3}) \|"
+)
 SECRET_ASSIGNMENT_RE = re.compile(
     r"(?im)^[ \t]*(?:DATABASE_URL|SUPABASE_SECRET_KEY|SERVICE_ROLE_KEY|JWT_SECRET)"
     r"[ \t]*=[ \t]*([^ \t\r\n#]+)"
@@ -227,6 +231,44 @@ def validate_d0_decision_register(errors: list[str]) -> None:
         errors.append(f"D0 decisions without disposition: {', '.join(unresolved)}")
 
 
+def validate_d0_acceptance(errors: list[str]) -> None:
+    acceptance = ROOT / "docs/06-delivery/big-plan/D0_PRODUCT_ACCEPTANCE.md"
+    if not acceptance.exists():
+        return
+    text = acceptance.read_text(encoding="utf-8")
+    required_markers = (
+        "- Status: `ACCEPTED`",
+        "- Approved by: `Quản lý Kho`",
+        "| Decision | `ACCEPTED` |",
+    )
+    for marker in required_markers:
+        if marker not in text:
+            errors.append(f"D0 acceptance missing marker: {marker}")
+
+
+def validate_d1_final_review(errors: list[str]) -> None:
+    batches = ROOT / "docs/06-delivery/big-plan/D1_BUSINESS_ACCEPTANCE.md"
+    final_review = ROOT / "docs/06-delivery/big-plan/D1_FINAL_ACCEPTANCE.md"
+    if not batches.exists() or not final_review.exists():
+        return
+
+    batch_text = batches.read_text(encoding="utf-8")
+    for batch in "ABCDE":
+        pattern = rf"(?m)^\| {batch} \|.*\| `ACCEPTED` \|$"
+        if not re.search(pattern, batch_text):
+            errors.append(f"D1 batch without accepted status: {batch}")
+
+    review_text = final_review.read_text(encoding="utf-8")
+    required_markers = (
+        "- Status: `ACCEPTED`",
+        "- Approved by: `Quản lý Kho`",
+        "| Decision | `ACCEPTED` |",
+    )
+    for marker in required_markers:
+        if marker not in review_text:
+            errors.append(f"D1 final acceptance missing marker: {marker}")
+
+
 def validate_no_committed_secret_values(errors: list[str]) -> None:
     candidates = markdown_files() + [ROOT / ".env.example"]
     for path in candidates:
@@ -247,6 +289,8 @@ def main() -> int:
     validate_big_plan_structure(errors)
     validate_clean_start_templates(errors)
     validate_d0_decision_register(errors)
+    validate_d0_acceptance(errors)
+    validate_d1_final_review(errors)
     validate_no_committed_secret_values(errors)
 
     if errors:

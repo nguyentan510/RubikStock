@@ -16,13 +16,15 @@
 12. [`03-data/templates/README.md`](03-data/templates/README.md)
 13. [`06-delivery/BUILD_ORDER.md`](06-delivery/BUILD_ORDER.md)
 14. [`06-delivery/big-plan/MASTER_PLAN.md`](06-delivery/big-plan/MASTER_PLAN.md)
+15. [`06-delivery/big-plan/D1_BUSINESS_ACCEPTANCE.md`](06-delivery/big-plan/D1_BUSINESS_ACCEPTANCE.md)
+16. [`06-delivery/big-plan/D1_FINAL_ACCEPTANCE.md`](06-delivery/big-plan/D1_FINAL_ACCEPTANCE.md)
 
 ## Nhóm tài liệu
 
 | Family | Mục đích | Maturity |
 |---|---|---|
-| `00-product` | Phạm vi product, user, ngôn ngữ, các quyết định chưa chốt | Nền tảng |
-| `01-business` | Quy trình hiện tại và mục tiêu, rule, exception, approval | Bản nháp contract |
+| `00-product` | Phạm vi product, user, ngôn ngữ, decision register | D0 accepted |
+| `01-business` | Quy trình hiện tại và mục tiêu, rule, exception, approval | D1 đang review |
 | `02-architecture` | Ranh giới hệ thống, module, deployment, security, ADR | Thiết kế đề xuất |
 | `03-data` | Data model, inventory ledger, UOM, Excel cutover | Contract khái niệm |
 | `04-contracts` | API, errors, idempotency, permissions | Dự kiến ở D2 |

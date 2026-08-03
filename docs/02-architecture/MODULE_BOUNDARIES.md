@@ -1,5 +1,7 @@
 # Module Boundaries
 
+- Contract status: `D1 ACCEPTED`
+
 RubikStock khởi đầu là một modular monolith. Các module dùng chung một deployment và một database, nhưng mỗi module tự sở hữu behavior và public application interface của nó.
 
 | Module | Sở hữu | Không được sở hữu |

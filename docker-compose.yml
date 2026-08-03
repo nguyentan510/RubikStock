@@ -15,5 +15,73 @@ services:
     volumes:
       - rubikstock-postgres:/var/lib/postgresql/data
 
+  migrate:
+    build:
+      context: ./apps/api
+    environment:
+      APP_ENV: local
+      DATABASE_URL: postgresql+psycopg://rubikstock:rubikstock@postgres:5432/rubikstock
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    build:
+      context: ./apps/api
+    environment:
+      APP_NAME: RubikStock API
+      APP_ENV: local
+      APP_VERSION: 0.1.0
+      LOG_LEVEL: INFO
+      API_V1_PREFIX: /api/v1
+      DATABASE_URL: postgresql+psycopg://rubikstock:rubikstock@postgres:5432/rubikstock
+      ALLOWED_ORIGINS: http://localhost:3000,http://127.0.0.1:3000
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/readyz', timeout=3)",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  web:
+    build:
+      context: ./apps/web
+      args:
+        NEXT_PUBLIC_APP_NAME: RubikStock
+        NEXT_PUBLIC_API_BASE_URL: http://localhost:8000
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+    depends_on:
+      api:
+        condition: service_healthy
+
 volumes:
   rubikstock-postgres:

@@ -31,7 +31,7 @@ D0 Product truth
 
 ## Slice có thể triển khai tiếp theo
 
-Slice tiếp theo của decision track là `D0 Product Acceptance`, song song với D2 foundation. Ba mục Batch D đã có disposition:
+Gate D0 đã pass. Slice tiếp theo của decision track là `D1 Business Contract Acceptance`, bắt đầu với inventory/Lot/UOM Batch A, song song với D2 foundation. Ba mục Batch D vẫn giữ disposition:
 
 - Accounting integration (`TBD-007`) deferred có owner `Kế toán`; không thuộc MVP.
 - Repository license (`TBD-012`) deferred có owner `CEO/Project Owner`; public source-visible nhưng chưa open source.
@@ -39,7 +39,7 @@ Slice tiếp theo của decision track là `D0 Product Acceptance`, song song v�
 
 Tổng register có 12 accepted, 2 deferred có owner và không còn mục Open vô chủ.
 
-Sau D0 acceptance, D1 business contracts vẫn phải được review riêng. D2 tiếp tục theo slice full-stack Compose, migration lifecycle, auth/RBAC và staging VPS; không coi D0 acceptance là evidence D2 pass.
+D1 business contracts phải được review riêng theo [`big-plan/D1_BUSINESS_ACCEPTANCE.md`](big-plan/D1_BUSINESS_ACCEPTANCE.md). D2 tiếp tục theo slice full-stack Compose, migration lifecycle, auth/RBAC và staging VPS; không coi D0 acceptance là evidence D1/D2 pass.
 
 ## Scope guard
 

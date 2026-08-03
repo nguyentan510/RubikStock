@@ -1,5 +1,7 @@
 # Business Acceptance Scenarios
 
+- Status: Core scenario index; detailed D1 Batch A-E scenarios đã accepted và được quản lý tại [`../06-delivery/big-plan/D1_BUSINESS_ACCEPTANCE.md`](../06-delivery/big-plan/D1_BUSINESS_ACCEPTANCE.md).
+
 | ID | Kịch bản | Kết quả mong đợi |
 |---|---|---|
 | SCN-001 | Nhận 10 case, 12 bottle/case | Hệ thống lưu đúng 10 case đã nhập và chính xác 120 base bottle với Lot/location/status |
@@ -19,4 +21,4 @@
 | SCN-015 | Doanh số bằng 0 trong giai đoạn stockout đã biết | Planning phải gắn cờ censored demand thay vì coi đó là demand bằng 0 |
 | SCN-016 | Trace một Supplier lot | Kết quả phải liệt kê receipt, current stock, reservations, shipments/customers, returns, destruction, và reconciliation |
 
-Chi tiết scenario và ngưỡng sẽ được mở rộng bằng ví dụ sanitized thật trong giai đoạn D1 acceptance.
+Các scenario sanitized cụ thể hơn sẽ trở thành automated tests/rehearsal ở phase implementation; business acceptance không được báo cáo là test runtime pass.

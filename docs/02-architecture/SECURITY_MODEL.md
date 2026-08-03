@@ -1,5 +1,7 @@
 # Security Model
 
+- Contract status: `D1 ACCEPTED`
+
 ## Mục tiêu security
 
 1. Ngăn thay đổi inventory và approval trái phép.

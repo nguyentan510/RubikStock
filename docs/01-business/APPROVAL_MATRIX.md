@@ -6,6 +6,8 @@ RubikStock MVP dùng một cấp duyệt cho FEFO override và stock adjustment;
 |---|---|---|---|---|
 | FEFO override | Sales/warehouse | Warehouse manager, luôn bắt buộc một cấp | Yes | Customer request and original/selected lots |
 | Stock adjustment | Warehouse/count team | Warehouse manager, luôn bắt buộc một cấp | Yes | Count/recount |
+| Unplanned receipt release | Warehouse receiver | Warehouse manager | Yes | Supplier/reference và lý do không có PO |
+| Over-receipt release | Warehouse receiver | Warehouse manager | Yes | Expected/actual/excess quantity và supplier evidence |
 | Return to available | Receiver/QC | Authorized inspector | Yes | Inspection result |
 | Damage classification | Warehouse/QC | Authorized inspector/manager | Yes | Condition evidence |
 | Destruction | Warehouse/QC | Independent manager | Yes | Quantity, Lot, private photo và note |

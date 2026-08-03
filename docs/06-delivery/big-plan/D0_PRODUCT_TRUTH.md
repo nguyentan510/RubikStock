@@ -1,6 +1,6 @@
 # D0 Roadmap - Product Truth
 
-- Status: `PROPOSED`
+- Status: `ACCEPTED`
 - Depends on: Không có
 - Unlocks: D1 business acceptance và domain schema an toàn
 
@@ -19,7 +19,7 @@ RUBIK và nhóm triển khai có cùng một định nghĩa về product boundar
 | D0.5 | Public/private boundary | Public source-visible/no-OSS-license disposition, data classification, repository policy | License review deferred tới khi có reuse/contribution intent |
 | D0.6 | Product acceptance | [`D0_PRODUCT_ACCEPTANCE.md`](D0_PRODUCT_ACCEPTANCE.md) | Gate D0 checklist và business acceptance |
 
-Workshop đang hoạt động tại [`D0_DECISION_WORKSHOP.md`](D0_DECISION_WORKSHOP.md).
+Workshop đã hoàn tất tại [`D0_DECISION_WORKSHOP.md`](D0_DECISION_WORKSHOP.md); acceptance record nằm tại [`D0_PRODUCT_ACCEPTANCE.md`](D0_PRODUCT_ACCEPTANCE.md).
 
 ## Thứ tự triển khai
 
@@ -38,10 +38,10 @@ D0.3 có thể chạy song song D0.1-D0.2 nhưng không được đưa dữ li�
 
 ## Exit gate
 
-- Scope và non-goals được RUBIK chấp nhận.
-- Mọi `TBD` có owner và disposition.
-- Public/private data boundary được duyệt.
-- Không có dữ liệu confidential/secret trong repository.
+- [x] Scope và non-goals được RUBIK chấp nhận.
+- [x] Mọi `TBD` có owner và disposition.
+- [x] Public/private data boundary được duyệt; OSS license cố ý deferred có owner/due gate.
+- [x] Documentation validation không phát hiện confidential/secret assignment trong repository scope được kiểm tra.
 
 ## Không thuộc D0
 

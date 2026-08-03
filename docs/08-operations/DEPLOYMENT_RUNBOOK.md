@@ -28,7 +28,8 @@
 
 ## Output bắt buộc của D2
 
-- Cách setup full-stack Local Docker bằng đúng một lệnh; PostgreSQL tiếp tục publish host port `5433`.
+- Full-stack Local Docker canonical command hiện có: `npm run stack:up`; PostgreSQL tiếp tục publish host port `5433`.
+- Local verification command: `npm run smoke:stack`, success marker `RUBIKSTOCK_STACK_SMOKE_OK`.
 - CI jobs chính xác và success markers.
 - Lệnh deploy staging/production chính xác.
 - Health endpoint và smoke scenario.
