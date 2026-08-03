@@ -37,6 +37,7 @@ RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó 
 - Kiến trúc hệ thống/module/deployment/security được đề xuất.
 - Contract khái niệm cho data, ledger, UOM, Lot, và Excel cutover.
 - Roadmap, build order, traceability, tests, và operations draft.
+- Big Plan với Master Plan, Current Phase Tracker và roadmap chi tiết cho D0-D2/M1-M9.
 - Documentation validator.
 - API FastAPI foundation với health/readyz/meta/OpenAPI/request logging.
 - Next.js web shell với typecheck, lint, và production build.
@@ -55,7 +56,7 @@ python scripts/validate_docs.py
 Kết quả quan sát được ngày 2026-08-03:
 
 ```text
-Validated 46 Markdown files.
+Validated 61 Markdown files.
 RUBIKSTOCK_DOCS_OK
 ```
 
@@ -66,9 +67,14 @@ Additional implementation verification in this slice:
 - `docker compose ps postgres`: container `healthy`, publish `0.0.0.0:5433->5432/tcp`
 - `pg_isready`: PostgreSQL chấp nhận kết nối
 - `uv run alembic upgrade head` against PostgreSQL; revision `0001_baseline`
-- API database readiness smoke: `RUBIKSTOCK_POSTGRES_READY_OK`
+- `npm run smoke:api`: `RUBIKSTOCK_API_SMOKE_OK`, readiness response có `database: ok`
 - `uv run pytest`: `3 passed`
 - `uv run ruff check .`: `All checks passed!`
 - `npm run lint`
 - `npm run typecheck`
 - `npm run build`
+
+## Known limitations
+
+- `npm audit` hiện báo `3 high severity vulnerabilities` trong dependency tree của Next.js, liên quan đến `postcss` và `sharp`. Chưa chạy `npm audit fix --force` vì npm đề xuất thay đổi SemVer major không phù hợp; cần xử lý trong dependency-hardening slice trước khi deploy production.
+- FastAPI test suite hiện có một deprecation warning từ `starlette.testclient`/`httpx`; test behavior vẫn pass.

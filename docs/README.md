@@ -11,6 +11,7 @@
 7. [`01-business/STATE_MACHINES.md`](01-business/STATE_MACHINES.md)
 8. [`03-data/DATA_MODEL.md`](03-data/DATA_MODEL.md)
 9. [`06-delivery/BUILD_ORDER.md`](06-delivery/BUILD_ORDER.md)
+10. [`06-delivery/big-plan/MASTER_PLAN.md`](06-delivery/big-plan/MASTER_PLAN.md)
 
 ## Nhóm tài liệu
 
@@ -22,7 +23,7 @@
 | `03-data` | Data model, inventory ledger, UOM, Excel cutover | Contract khái niệm |
 | `04-contracts` | API, errors, idempotency, permissions | Dự kiến ở D2 |
 | `05-ux` | Sitemap, luồng màn hình, trải nghiệm kho/mobile | Dự kiến ở D2 |
-| `06-delivery` | Roadmap, build order, status, traceability, gates | Điều phối hiện hành |
+| `06-delivery` | Roadmap, Big Plan theo phase, build order, status, traceability, gates | Điều phối hiện hành |
 | `07-testing` | Test strategy và kịch bản nghiệm thu nghiệp vụ | Contract ban đầu |
 | `08-operations` | Environments, deployment, backup, secrets, incidents | Bản nháp trước runtime |
 

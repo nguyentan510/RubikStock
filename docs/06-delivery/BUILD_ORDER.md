@@ -4,6 +4,8 @@
 
 Chỉ xây slice kế tiếp khi upstream truth của nó đã được chứng minh.
 
+Chi tiết work package và exit evidence nằm trong [`big-plan/MASTER_PLAN.md`](big-plan/MASTER_PLAN.md).
+
 ```text
 D0 Product truth
 -> D1 Business contracts

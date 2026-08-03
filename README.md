@@ -24,12 +24,14 @@ Tồn kho đúng trước -> Vận hành có kiểm soát -> Kế hoạch giải
 - [`docs/01-business/BUSINESS_RULES.md`](docs/01-business/BUSINESS_RULES.md) - các quy tắc domain bắt buộc
 - [`docs/03-data/DATA_MODEL.md`](docs/03-data/DATA_MODEL.md) - conceptual data model
 - [`docs/06-delivery/BUILD_ORDER.md`](docs/06-delivery/BUILD_ORDER.md) - thứ tự triển khai an toàn theo dependency
+- [`docs/06-delivery/big-plan/MASTER_PLAN.md`](docs/06-delivery/big-plan/MASTER_PLAN.md) - kế hoạch tổng và roadmap chi tiết theo từng phase
 
 ## Local commands
 
 - `npm run setup` - cài API/web dependencies, copy `.env` nếu cần, khởi tạo local PostgreSQL tại `localhost:5433`, và chạy Alembic baseline upgrade.
 - `npm run dev` - khởi chạy API và web dev servers sau khi setup local xong.
 - `npm run check` - chạy docs validation, API tests, migration upgrade, và web lint/typecheck/build.
+- `npm run smoke:api` - chạy HTTP readiness smoke tạm thời qua API và local PostgreSQL.
 
 ## Chính sách repository
 

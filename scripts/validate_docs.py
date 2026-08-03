@@ -7,7 +7,6 @@ import sys
 from pathlib import Path
 from urllib.parse import unquote
 
-
 ROOT = Path(__file__).resolve().parents[1]
 
 REQUIRED_FILES = (
@@ -36,6 +35,21 @@ REQUIRED_FILES = (
     "docs/03-data/EXCEL_MIGRATION.md",
     "docs/06-delivery/ROADMAP.md",
     "docs/06-delivery/BUILD_ORDER.md",
+    "docs/06-delivery/big-plan/README.md",
+    "docs/06-delivery/big-plan/MASTER_PLAN.md",
+    "docs/06-delivery/big-plan/CURRENT_PHASE_TRACKER.md",
+    "docs/06-delivery/big-plan/D0_PRODUCT_TRUTH.md",
+    "docs/06-delivery/big-plan/D1_BUSINESS_CONTRACTS.md",
+    "docs/06-delivery/big-plan/D2_TECHNICAL_FOUNDATION.md",
+    "docs/06-delivery/big-plan/M1_MASTER_DATA_WAREHOUSE_MAP.md",
+    "docs/06-delivery/big-plan/M2_INVENTORY_LEDGER.md",
+    "docs/06-delivery/big-plan/M3_INBOUND.md",
+    "docs/06-delivery/big-plan/M4_B2B_OUTBOUND.md",
+    "docs/06-delivery/big-plan/M5_QUALITY_EXCEPTIONS.md",
+    "docs/06-delivery/big-plan/M6_COMPANY_DELIVERY.md",
+    "docs/06-delivery/big-plan/M7_REPLENISHMENT.md",
+    "docs/06-delivery/big-plan/M8_PRODUCTION_QUALIFICATION.md",
+    "docs/06-delivery/big-plan/M9_OPTIMIZATION.md",
     "docs/06-delivery/IMPLEMENTATION_STATUS.md",
     "docs/06-delivery/TRACEABILITY_MATRIX.md",
     "docs/06-delivery/ACCEPTANCE_GATES.md",
@@ -54,6 +68,20 @@ RULE_ID_RE = re.compile(r"\b(?:INV|LOT|UOM|OUT|QLT|RET|DST|DEL|PLN|AUD|SEC)-\d{3
 SECRET_ASSIGNMENT_RE = re.compile(
     r"(?im)^[ \t]*(?:DATABASE_URL|SUPABASE_SECRET_KEY|SERVICE_ROLE_KEY|JWT_SECRET)"
     r"[ \t]*=[ \t]*([^ \t\r\n#]+)"
+)
+BIG_PLAN_ROADMAPS = (
+    "docs/06-delivery/big-plan/D0_PRODUCT_TRUTH.md",
+    "docs/06-delivery/big-plan/D1_BUSINESS_CONTRACTS.md",
+    "docs/06-delivery/big-plan/D2_TECHNICAL_FOUNDATION.md",
+    "docs/06-delivery/big-plan/M1_MASTER_DATA_WAREHOUSE_MAP.md",
+    "docs/06-delivery/big-plan/M2_INVENTORY_LEDGER.md",
+    "docs/06-delivery/big-plan/M3_INBOUND.md",
+    "docs/06-delivery/big-plan/M4_B2B_OUTBOUND.md",
+    "docs/06-delivery/big-plan/M5_QUALITY_EXCEPTIONS.md",
+    "docs/06-delivery/big-plan/M6_COMPANY_DELIVERY.md",
+    "docs/06-delivery/big-plan/M7_REPLENISHMENT.md",
+    "docs/06-delivery/big-plan/M8_PRODUCTION_QUALIFICATION.md",
+    "docs/06-delivery/big-plan/M9_OPTIMIZATION.md",
 )
 
 
@@ -98,6 +126,26 @@ def validate_rule_ids(errors: list[str]) -> None:
         errors.append(f"unexpectedly small rule catalog: {len(ids)} rule IDs")
 
 
+def validate_big_plan_structure(errors: list[str]) -> None:
+    required_fragments = (
+        "- Status:",
+        "- Depends on:",
+        "## Outcome",
+        "## Work packages",
+        "| ID |",
+    )
+    for relative in BIG_PLAN_ROADMAPS:
+        path = ROOT / relative
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for fragment in required_fragments:
+            if fragment not in text:
+                errors.append(f"incomplete big-plan roadmap: {relative} missing {fragment}")
+        if "## Exit gate" not in text and "## Exit condition" not in text:
+            errors.append(f"incomplete big-plan roadmap: {relative} missing exit criteria")
+
+
 def validate_no_committed_secret_values(errors: list[str]) -> None:
     candidates = markdown_files() + [ROOT / ".env.example"]
     for path in candidates:
@@ -115,6 +163,7 @@ def main() -> int:
     validate_required(errors)
     validate_links(errors)
     validate_rule_ids(errors)
+    validate_big_plan_structure(errors)
     validate_no_committed_secret_values(errors)
 
     if errors:

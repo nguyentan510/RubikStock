@@ -46,6 +46,8 @@ jobs:
         run: uv sync --extra dev
       - name: Run migrations
         run: uv run alembic upgrade head
+      - name: Lint API
+        run: uv run ruff check .
       - name: Run API tests
         run: uv run pytest
 

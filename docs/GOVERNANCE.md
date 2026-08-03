@@ -19,6 +19,7 @@
 | API contract | FastAPI OpenAPI được sinh ra khi implementation bắt đầu |
 | Permission policy | Tài liệu approval/permission cộng với authorization tests |
 | Delivery order | `06-delivery/BUILD_ORDER.md` |
+| Detailed phase execution | `06-delivery/big-plan/MASTER_PLAN.md` và roadmap của phase tương ứng |
 | Actual maturity | `06-delivery/IMPLEMENTATION_STATUS.md` |
 | Deployment behavior | CI/CD workflow cộng với operations runbook |
 | Secrets | Hosting secret manager; không bao giờ là documentation hay Git |

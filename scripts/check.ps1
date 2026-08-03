@@ -27,6 +27,7 @@ Push-Location (Join-Path $repoRoot "apps/api")
 try {
   Invoke-Checked -Description "Syncing API dependencies" -Command { uv sync --extra dev }
   Invoke-Checked -Description "Applying database migrations" -Command { uv run alembic upgrade head }
+  Invoke-Checked -Description "Linting API" -Command { uv run ruff check . }
   Invoke-Checked -Description "Running API tests" -Command { uv run pytest }
 } finally {
   Pop-Location

@@ -21,6 +21,7 @@ out/
 # Build artifacts
 dist/
 build/
+logs/
 *.tsbuildinfo
 
 # Local databases
