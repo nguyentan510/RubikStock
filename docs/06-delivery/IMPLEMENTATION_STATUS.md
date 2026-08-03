@@ -6,7 +6,7 @@
 - Repository path: `D:\RubikStock`
 - Git repository: Initialized
 - Code implementation: D2 technical foundation scaffold started
-- Runtime environment: Local dev scaffolded; Docker daemon availability was not confirmed in this session
+- Runtime environment: Local PostgreSQL đã được xác minh qua Docker Desktop trên host port `5433`
 - Production readiness: Chưa đánh giá
 
 ## Bảng maturity
@@ -16,7 +16,7 @@
 | Product scope | Đã draft | N/A | N/A | Chưa sẵn sàng |
 | Business rules | Đề xuất | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
 | Architecture | Đề xuất | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
-| Technical foundation | Đã draft | Started | Partial | Chưa sẵn sàng |
+| Technical foundation | Đã draft | Started | Local PostgreSQL verified | Chưa sẵn sàng |
 | Data model | Khái niệm | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
 | Inventory ledger | Đã draft contract | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
 | Inbound/outbound | Đã draft workflow | Chưa bắt đầu | Chưa có | Chưa sẵn sàng |
@@ -26,7 +26,7 @@
 
 ## Kết luận hiện tại
 
-RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó đã có API/web skeleton, migration scaffold, bootstrap scripts, và CI scaffold, nhưng chưa phải contract-accepted, runtime-verified cho local Postgres, hay production-ready.
+RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó đã có API/web skeleton, migration scaffold, bootstrap scripts, CI scaffold, và local PostgreSQL runtime evidence; nhưng chưa phải contract-accepted hoặc production-ready.
 
 ## Evidence đã tạo trong slice này
 
@@ -41,6 +41,7 @@ RubikStock đang ở trạng thái **D2 technical foundation in progress**. Nó 
 - API FastAPI foundation với health/readyz/meta/OpenAPI/request logging.
 - Next.js web shell với typecheck, lint, và production build.
 - Alembic baseline migration, `uv.lock`, `package-lock.json`, và bootstrap scripts.
+- Docker Compose PostgreSQL mapping `localhost:5433 -> container:5432`.
 - Git repository initialization.
 
 ## Verification
@@ -54,7 +55,7 @@ python scripts/validate_docs.py
 Kết quả quan sát được ngày 2026-08-03:
 
 ```text
-Validated 44 Markdown files.
+Validated 46 Markdown files.
 RUBIKSTOCK_DOCS_OK
 ```
 
@@ -62,10 +63,12 @@ Verification này kiểm tra file bắt buộc, internal Markdown links, tính d
 
 Additional implementation verification in this slice:
 
-- `uv run alembic upgrade head` against SQLite fallback
-- `uv run pytest`
+- `docker compose ps postgres`: container `healthy`, publish `0.0.0.0:5433->5432/tcp`
+- `pg_isready`: PostgreSQL chấp nhận kết nối
+- `uv run alembic upgrade head` against PostgreSQL; revision `0001_baseline`
+- API database readiness smoke: `RUBIKSTOCK_POSTGRES_READY_OK`
+- `uv run pytest`: `3 passed`
+- `uv run ruff check .`: `All checks passed!`
 - `npm run lint`
 - `npm run typecheck`
 - `npm run build`
-
-Local Postgres container startup was attempted but Docker Desktop was not running in this session.

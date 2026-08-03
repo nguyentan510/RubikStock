@@ -27,7 +27,7 @@ Tồn kho đúng trước -> Vận hành có kiểm soát -> Kế hoạch giải
 
 ## Local commands
 
-- `npm run setup` - cài API/web dependencies, copy `.env` nếu cần, khởi tạo local Postgres container khi Docker khả dụng, và chạy Alembic baseline upgrade.
+- `npm run setup` - cài API/web dependencies, copy `.env` nếu cần, khởi tạo local PostgreSQL tại `localhost:5433`, và chạy Alembic baseline upgrade.
 - `npm run dev` - khởi chạy API và web dev servers sau khi setup local xong.
 - `npm run check` - chạy docs validation, API tests, migration upgrade, và web lint/typecheck/build.
 
